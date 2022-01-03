@@ -1,0 +1,19 @@
+@media only screen and (min-width: 600px) {
+    .smk-pl-0{
+        padding-left: 0 !important;
+    }
+    .smk-pr-0{
+        padding-right: 0 !important;
+    }
+  }
+
+
+
+
+.smk-bg-white{
+    background-color: white;
+}
+
+.smk-w-30{
+    width:30% !important;
+}
