@@ -96,6 +96,8 @@ class AdminSesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $test = Session::find($id);
+        $test->delete();
+        return back()->withMessage('Session Deleted Successfully');
     }
 }

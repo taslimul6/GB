@@ -22,7 +22,20 @@
 
     <!-- Main content -->
     <section class="content">
+      <div class="row ">
+        <div class="col-md-12">
+          @if ($errors->any())
+            @foreach ($errors->all() as $error)
+              <div class="alert alert-danger">{{$error}}</div>
+              
+            @endforeach
+            
+          @endif
+
+        </div>
+      </div>
       <div class="row">
+        
         <!-- left column -->
         <div class="col-md-6">
           <!-- general form elements -->
@@ -32,36 +45,38 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post"  >
+            <form role="form" method="post"  action="{{route('student.store')}}">
+              @csrf
+              
               <div class="box-body">
 
 
                 <div class="form-group">
                   <label >Full Name</label>
-                  <input name="full_name" type="text" class="form-control"  placeholder="Full Name">
+                  <input name="full_name" type="text" class="form-control" value="{{old('full_name')}}"  placeholder="Full Name">
                 </div>
 
                 <div class="form-group">
                     <label > Present Address</label>
-                    <input name="Present_Address" type="text" class="form-control"  placeholder="Present Address">
+                    <input name="present_address" type="text" class="form-control" value="{{old('present_address')}}"  placeholder="Present Address">
                 </div>
   
 
                 <div class="form-group">
                     <label >Permanent Address</label>
-                    <input name="Permanent_Address" type="text" class="form-control"  placeholder="Permanent Address">
+                    <input name="permanent_address" type="text" class="form-control" value="{{old('permanent_address')}}" placeholder="Permanent Address">
                 </div>
   
 
                 <div class="form-group">
                     <label >Phone Number</label>
-                    <input name="phone" type="text" class="form-control"  placeholder="Phone Number">
+                    <input name="phone" type="text" class="form-control" value="{{old('phone')}}" placeholder="Phone Number">
                 </div>
   
 
                 <div class="form-group">
                     <label >Blood Group</label>
-                    <input name="blood" type="text" class="form-control"  placeholder="Blood Group">
+                    <input name="blood" type="text" class="form-control" value="{{old('blood')}}" placeholder="Blood Group">
                 </div>
   
 
@@ -87,13 +102,13 @@
 
                 <div class="form-group">
                     <label >Nationality</label>
-                    <input name="nationality" type="text" class="form-control"  placeholder="Nationality">
+                    <input name="nationality" type="text" class="form-control" value="{{old('nationality')}}" placeholder="Nationality">
                 </div>
   
 
                 <div class="form-group">
                     <label >Religion</label>
-                    <input name="religion" type="text" class="form-control"  placeholder="Religion">
+                    <input name="religion" type="text" class="form-control" value="{{old('religion')}}" placeholder="Religion">
                 </div>
   
 
@@ -138,36 +153,36 @@
               
                 <div class="box-body">
 
-
+                  
 
                     <div class="form-group">
                         <label >Father's Name</label>
-                        <input name="fathers_name" type="text" class="form-control"  placeholder="Father's Name">
+                        <input name="fathers_name" type="text" class="form-control" value="{{old('fathers_name')}}" placeholder="Father's Name">
                     </div>
  
                     <div class="form-group">
                         <label >Father's Phone Number</label>
-                        <input name="fathers_contact" type="text" class="form-control"  placeholder="Religion">
+                        <input name="fathers_contact" type="text" class="form-control" value="{{old('fathers_contact')}}" placeholder="Religion">
                     </div>
  
                     <div class="form-group">
                         <label >Mother's Name</label>
-                        <input name="mothers_name" type="text" class="form-control"  placeholder="Mother's Name">
+                        <input name="mothers_name" type="text" class="form-control" value="{{old('mothers_name')}}" placeholder="Mother's Name">
                     </div>
  
                     <div class="form-group">
                         <label >Emergency Contact Name</label>
-                        <input name="emergency_c_name" type="text" class="form-control"  placeholder="Emergency Contact Name">
+                        <input name="emergency_c_name" type="text" class="form-control" value="{{old('emergency_c_name')}}" placeholder="Emergency Contact Name">
                     </div>
  
                     <div class="form-group">
                         <label >Emergency Number</label>
-                        <input name="emergency_number" type="text" class="form-control"  placeholder="Emergency Number">
+                        <input name="emergency_number" type="text" class="form-control" value="{{old('emergency_number')}}" placeholder="Emergency Number">
                     </div>
  
                     <div class="form-group">
                         <label >Emergency Address</label>
-                        <input name="emergency_address" type="text" class="form-control"  placeholder="Emergency Address">
+                        <input name="emergency_address" type="text" class="form-control" value="{{old('emergency_address')}}" placeholder="Emergency Address">
                     </div>
                   
                 </div>
@@ -187,26 +202,49 @@
   
                       <div class="form-group">
                         <label>Department</label>
-                        <select class="form-control" name="gender">
-                          <option >Male</option>
+                        <select class="form-control" name="department_id">
+                          @foreach($deps as $dep )
+
+                            <option value="{{$dep->id}}"> {{$dep->name}} </option>
+                          @endforeach
+                          
                           
                         </select>
                       </div>
 
                       <div class="form-group">
                           <label >Batch</label>
-                          <input name="batch" type="text" class="form-control"  placeholder="Batch">
+                          <input name="batch" type="text" class="form-control" value="{{old('batch')}}" placeholder="Batch">
                       </div>
    
                       <div class="form-group">
                           <label >Class Roll</label>
-                          <input name="class_roll" type="text" class="form-control"  placeholder="Class Roll">
+                          <input name="class_roll" type="text" class="form-control" value="{{old('class_roll')}}" placeholder="Class Roll">
                       </div>
    
                       <div class="form-group">
                           <label >Exam Roll</label>
-                          <input name="exam_roll" type="text" class="form-control"  placeholder="Exam Roll">
+                          <input name="exam_roll" type="text" class="form-control" value="{{old('exam_roll')}}" placeholder="Exam Roll">
                       </div>
+                         
+                      <div class="form-group">
+                        <label >Admitted Date</label>
+                        <input name="admission_date" type="date" class="form-control" value="{{old('admission_date')}}" placeholder=" ">
+                    </div>
+ 
+                       
+                    <div class="form-group">
+                      <label >Admitted Session</label>
+                      <select class="form-control" name="ad_session">
+                        @foreach($sess as $ses )
+
+                        <option value="{{$ses->id}}"> {{$ses->title}} </option>
+                      @endforeach
+                      
+                        
+                      </select>
+                  </div>
+
    
                       
    
@@ -239,12 +277,12 @@
 
                     <div class="form-group">
                         <label >Student ID</label>
-                        <input name="student_id" type="text" class="form-control"  placeholder="Student Id">
+                        <input name="student_id" type="text" class="form-control" value="{{old('student_id')}}" placeholder="Student Id">
                     </div>
  
                     <div class="form-group">
                         <label >Email</label>
-                        <input name="email" type="email" class="form-control"  placeholder="Email Address">
+                        <input name="email" type="email" class="form-control" value="{{old('email')}}" placeholder="Email Address">
                     </div>
  
                     <div class="form-group">

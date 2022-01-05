@@ -17,16 +17,17 @@ class CreateStudentsTable extends Migration
             $table->id();
 
             $table->integer('student_id');
+
+            //academic
             $table->integer('batch');
             $table->integer('class_roll');
             $table->integer('exam_roll');
-            $table->integer('semester_id');
             $table->integer('department_id');
 
             $table->date('admission_date')->nullable();
-            $table->string('session');
+            $table->string('ad_session');
 
-
+            //personal
             $table->string('full_name');
             $table->string('present_address')->nullable();
             $table->string('permanent_address');

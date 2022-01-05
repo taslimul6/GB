@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Department;
+use App\Models\Session;
 use Illuminate\Pagination;
 
 class AdminStuController extends Controller
@@ -36,7 +38,17 @@ class AdminStuController extends Controller
      */
     public function create()
     {
-        return view('admin.student-create');
+        $deps = Department::all();
+        $sess = Session::all();
+
+
+        // 
+
+
+        return view('admin.student-create', [
+            'deps'=> $deps,
+            'sess'=> $sess
+        ]);
     }
 
     /**
@@ -47,7 +59,32 @@ class AdminStuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student_info=$request->validate([
+            'full_name'=> 'required|max:200',
+            'present_address'=> 'nullable|max:200',
+            'permanent_address'=> 'required|max:200',
+            'phone'=> 'required|max:200',
+            'gender'=> 'required|max:200',
+            'blood'=> 'nullable|max:200',
+            'nationality'=> 'required|max:200',
+            'religion'=> 'required|max:200',
+            'fathers_name'=> 'required|max:200',
+            'fathers_contact'=> 'required|max:200',
+            'mothers_name'=> 'required|max:200',
+            'mothers_contact'=> 'nullable|max:200',
+            'emergency_c_name'=> 'required|max:200',
+            'emergency_number'=> 'required|max:200',
+            'emergency_address'=> 'nullable|max:200',
+            'student_id'=> 'required|max:200',
+            'batch'=> 'required|max:200',
+            'class_roll'=> 'required|max:200',
+            'exam_roll'=> 'required|max:200',
+            'department_id'=> 'required|max:200',
+
+
+        ]);
+
+        return "ami nai";
     }
 
     /**

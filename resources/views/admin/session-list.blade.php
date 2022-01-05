@@ -19,6 +19,15 @@
      
  
       <div class="row">
+        @if (Session()->has('message')) 
+        <div class="col-md-12">
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+           
+           {{Session('message')}}
+          </div>
+        </div>
+        @endif
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
@@ -65,6 +74,12 @@
                   
                  
                   <td><a href="#">Edit</a></td>
+                  <td> <form action="{{route('session.destroy', $data->id)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
                 </tr>
                 @endforeach
                 
