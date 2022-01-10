@@ -29,10 +29,10 @@
           <div class="col-md-6">
             <div class="card" style="">
               <div class="card-body">
-                <h2 class="card-title"> Md. Jahidur Rahman</h2>
-                <h4 class="card-subtitle mb-2 ">190116509</h4>
-                <p class="card-text">BSc in Electrical and Electronics Engineering (Diploma) (EEE) </p>
-                <h4 class="card-subtitle mb-2 ">Batch: 5th</h4>
+                <h2 class="card-title">{{ $data->full_name }} </h2>
+                <h4 class="card-subtitle mb-2 ">{{ $data->student_id }}</h4>
+                <p class="card-text">{{ $data->department->course_name }}</p>
+                <h4 class="card-subtitle mb-2 ">{{ $data->batch }}</h4>
                 
               </div>
             </div>
@@ -56,7 +56,7 @@
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Email: </td>
-                    <td>{{ $data->phone }}</td>
+                    <td> </td>
                   </tr>
                   <tr>
                     <th class="smk-w-30">Present Address: </td>
@@ -92,7 +92,7 @@
                   </tr>
                   <tr>
                     <th> Date Of Birth: </td>
-                    <td>{{ $data->full_name }}</td>
+                    {{-- <td>{{ $data->dob }}</td> --}}
                   </tr>
                   <tr>
                     <th> Gender: </td>
@@ -175,35 +175,35 @@
                 <table class="table table-hover">
                   <tr>
                     <th class="smk-w-30"> Department: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->department->name }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Program Name: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->department->course_name }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30">Student ID: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->student_id }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Exam Roll: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->exam_roll }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Batch: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->batch }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Date Of Admission: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->admission_date }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Admitted Semester Session: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $data->ad_session }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Graduated Semester Session: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td> </td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Current Semester: </td>

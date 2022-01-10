@@ -23,17 +23,20 @@ class CreateStudentsTable extends Migration
             $table->integer('class_roll');
             $table->integer('exam_roll');
             $table->integer('department_id');
+            $table ->integer('user_id')->nullable();
 
             $table->date('admission_date')->nullable();
-            $table->string('ad_session');
+            $table->string('ad_session')->nullable();
 
             //personal
+
             $table->string('full_name');
             $table->string('present_address')->nullable();
             $table->string('permanent_address');
             $table->string('phone');
             $table->string('gender');
             $table->string('blood')->nullable();
+            $table->string('dob')->nullable();
             $table->string('nationality');
             $table->string('religion');
             $table->string('fathers_name');
@@ -43,6 +46,7 @@ class CreateStudentsTable extends Migration
             $table->string('emergency_c_name');
             $table->string('emergency_number');
             $table->string('emergency_address')->nullable();
+
 
             $table->timestamps();
         });

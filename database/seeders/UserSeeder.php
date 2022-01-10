@@ -42,10 +42,11 @@ class UserSeeder extends Seeder
             'class_roll' => $faker ->randomDigit(3),
             'exam_roll' => $faker ->randomDigit(),
             'department_id' => $faker ->randomDigit(),
-            'semester_id' => $faker ->randomDigit(),
-            'batch' => $faker ->randomDigit(),
             
-            'session'=>$faker->text(6),
+            'batch' => $faker ->randomDigit(),
+            'dob' => $faker ->date(),
+            
+            
 
 
            

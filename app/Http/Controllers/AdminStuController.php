@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Student;
 use App\Models\Department;
 use App\Models\Session;
+use App\Models\Status;
 use Illuminate\Pagination;
 
 class AdminStuController extends Controller
@@ -58,7 +60,7 @@ class AdminStuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $student_info=$request->validate([
             'full_name'=> 'required|max:200',
             'present_address'=> 'nullable|max:200',
@@ -75,16 +77,39 @@ class AdminStuController extends Controller
             'emergency_c_name'=> 'required|max:200',
             'emergency_number'=> 'required|max:200',
             'emergency_address'=> 'nullable|max:200',
-            'student_id'=> 'required|max:200',
-            'batch'=> 'required|max:200',
-            'class_roll'=> 'required|max:200',
-            'exam_roll'=> 'required|max:200',
-            'department_id'=> 'required|max:200',
+            'student_id'=> 'required|integer',
+            'batch'=> 'required|integer',
+            'class_roll'=> 'required|integer',
+            'exam_roll'=> 'required|integer',
+            'department_id'=> 'required|integer',
+            // 'dob' => 'required|date|date_format:Y-m-d'
 
 
         ]);
+        $val= $request->validate([
+            'student_id'=> 'required|integer|unique:users',
+            'email' => 'required|unique:users|email',
+            'password' => 'required|min:8'
+            
+        ]);
 
-        return "ami nai";
+        $cred = new User;
+        $cred ->name = $request->full_name;
+        $cred ->email = $request->email;
+        $cred ->password = bcrypt($request->password);
+        $cred-> student_id = $request->student_id;
+        $cred->save();
+
+
+
+        Student::Create($student_info);
+
+        $status = new Status;
+        $status-> student_id = $request->student_id;
+        $status->save();
+
+
+       return redirect()->back()->withMessage('Student Created Successfully');
     }
 
     /**

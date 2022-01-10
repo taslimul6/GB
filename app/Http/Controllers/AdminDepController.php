@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\Dpay;
 
 class AdminDepController extends Controller
 {
@@ -35,8 +36,36 @@ class AdminDepController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.department-create');
+    {    
+        if(request('next')){
+        $dept = request()->all();
+        $name = request()->name;
+        $course = request()->course_name;
+
+        
+        $test = Department::create($dept);
+
+        for ($x = 1; $x = 8; $x++) {
+
+            $dpay = new Dpay;
+            $dpay-> department_id = $test->id;
+            $dpay-> semester_id = $x;
+          }
+        
+
+        
+        return view('admin.department-create' , [
+            'next' => $test,
+            'name' => $name,
+            'course' => $course,
+        ]);
+
+        }else{
+            $next= null;
+            return view('admin.department-create' , [
+                'next' => $next,
+            ]);
+        }
     }
 
     /**
@@ -48,11 +77,7 @@ class AdminDepController extends Controller
     public function store(Request $request)
     {
        
-        $dept = $request->all();
-        $test = Department::create($dept);
-
-        
-        return back()->withMessage('Department Created Successfully');
+      
     }
 
     /**
@@ -63,7 +88,11 @@ class AdminDepController extends Controller
      */
     public function show($id)
     {
-        //
+        $dept = $request->all();
+        $test = Department::create($dept);
+
+        
+        return back()->withMessage('Department Created Successfully');
     }
 
     /**

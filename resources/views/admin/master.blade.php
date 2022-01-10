@@ -398,7 +398,7 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>Individual Report</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i>Departmental Report</a></li>
+                <li><a href="{{route('payment.due')}}"><i class="fa fa-circle-o"></i>Departmental Report</a></li>
                 
                 
             </ul>
@@ -412,7 +412,7 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>Individual Entry</a></li>
+                <li><a href="{{route('payment.index')}}"><i class="fa fa-circle-o"></i>Individual Entry</a></li>
                 <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> </a></li>
                 
             </ul>
@@ -426,7 +426,7 @@
               </span>
           </a>
           <ul class="treeview-menu">
-              <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>Student Enrollment</a></li>
+              <li><a href="{{route('enrollment.index')}}"><i class="fa fa-circle-o"></i>Student Enrollment</a></li>
               
               
           </ul>

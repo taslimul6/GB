@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
 use Illuminate\Support\Carbon;
-
-class DeptSeeder extends Seeder
+class SemesterSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,13 +18,11 @@ class DeptSeeder extends Seeder
     {
         $faker = Factory::create();
         
-        for($i=0; $i<10; $i++):
+        for($i=0; $i<8; $i++):
         $user = [
            
-            'name' => $faker-> realText(40),
-            'course_name' => $faker ->text(50),
-
-           
+            'name' => $faker-> realText(15),
+            
             
             
             'created_at' => Carbon::now()-> format('y-m-d h:i:s' ),
@@ -33,7 +30,7 @@ class DeptSeeder extends Seeder
            
         ];
     
-    DB::table('departments') -> insert($user);
+    DB::table('semesters') -> insert($user);
     
         endfor;
     }

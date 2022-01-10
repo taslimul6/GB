@@ -5,7 +5,8 @@ use App\Http\Controllers\AdminStuController;
 use App\Http\Controllers\AdminDepController;
 use App\Http\Controllers\AdminSesController;
 use App\Http\Controllers\AdminPageController;
-
+use App\Http\Controllers\AdminEnrollController;
+use App\Http\Controllers\AdminPaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,8 +29,6 @@ Route::get('/student', function () {
 Route::get('/admin', function () {
     return view('admin.index');
 });
-Route::get('/admin/Enrollments' , [AdminPageController::class , 'enrollment'])->name('student.enrollment');
-
 
 
 Route::resource("admin/session" , AdminSesController::class);
@@ -37,3 +36,8 @@ Route::resource("admin/session" , AdminSesController::class);
 Route::resource('admin/student', AdminStuController::class);
 
 Route::resource('admin/department', AdminDepController::class);
+
+Route::resource('admin/enrollment', AdminEnrollController::class);
+
+Route::resource('admin/payment', AdminPaymentController::class);
+Route::get('admin/due/department' , [AdminPageController::class , 'due'])->name('payment.due');

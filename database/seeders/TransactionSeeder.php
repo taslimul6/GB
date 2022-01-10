@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory;
 use Illuminate\Support\Carbon;
 
-class DeptSeeder extends Seeder
+class TransactionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,10 +22,15 @@ class DeptSeeder extends Seeder
         for($i=0; $i<10; $i++):
         $user = [
            
-            'name' => $faker-> realText(40),
-            'course_name' => $faker ->text(50),
-
+            
+            'student_id' => $faker-> randomDigit(5),
+            'session_id' => $faker-> randomDigit(5),
+            'semester_id' => $faker-> randomDigit(5),
+            'details' => $faker-> realText(15),
+            'amount' => $faker-> randomDigit(5),
+            'payslip' => $faker-> randomDigit(5),
            
+            
             
             
             'created_at' => Carbon::now()-> format('y-m-d h:i:s' ),
@@ -33,7 +38,7 @@ class DeptSeeder extends Seeder
            
         ];
     
-    DB::table('departments') -> insert($user);
+    DB::table('transactions') -> insert($user);
     
         endfor;
     }

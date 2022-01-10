@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
 
             
             DeptSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            SemesterSeeder::class,
+            SessionSeeder::class,
+            TransactionSeeder::class
            
         ]);
     }

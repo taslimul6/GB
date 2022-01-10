@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 
 class AdminPageController extends Controller
 {
-    public function enrollment(){
-        view('admin.enrollment');
+   
+    public function due()
+    { 
+        $src = null;
+        return view('admin.payment-due' , [
+            'src' => $src
+        ]);
+       
     }
 }

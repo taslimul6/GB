@@ -17,3 +17,6 @@
 .smk-w-30{
     width:30% !important;
 }
+.disallow{
+    cursor: not-allowed;
+}

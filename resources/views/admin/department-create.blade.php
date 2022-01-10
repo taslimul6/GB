@@ -37,94 +37,106 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post" action="{{route('department.store')}}">
+            <form role="form" method="get" action="{{route('department.create')}}">
               <div class="box-body">
 
-                @csrf
+                
 
                 <div class="form-group">
                     <label >Department Name</label>
-                    <input type="text" class="form-control" placeholder="Department Name" name="name">
+                    <input type="text" class="form-control" placeholder="Department Name" name="name" @isset($name) value="{{$name }}" @endisset>
                 </div>
   
 
                   <div class="form-group">
                     <label >Course Name</label>
-                    <input type="text" class="form-control" placeholder="Course Name" name="course_name">
+                    <input type="text" class="form-control" placeholder="Course Name" name="course_name"  @isset($name) value="{{$course }}" @endisset>
                 </div>
-  
-
-                
-
-                <div class="form-group">
-                    <label >Semister: 1</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p1">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 2</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p2">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 3</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p3">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 4</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p4">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 5</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p5">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 6</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p6">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 7</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p7">
-                </div>
- 
-                <div class="form-group">
-                    <label >Semister: 8</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="p8">
-                </div>
- 
-                <div class="form-group">
-                    <label >others 1</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="o1">
-                </div>
-  
-                <div class="form-group">
-                    <label >others 1</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="o2">
-                </div>
-  
-                <div class="form-group">
-                    <label >Total Ammount</label>
-                    <input type="number" class="form-control" placeholder="Ammount" name="total">
-                </div>
- 
-      
-
-
-               
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Create Department</button>
+                <button type="submit" class="btn btn-primary" name='next' value="1"> Next</button>
               </div>
             </form>
           </div>
           <!-- /.box -->
-
           
+
+          @isset ($next)
+           
+          
+                  <div class="box box-primary mt-3">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Department Information</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" method="post" action="{{route('department.store')}}">
+                      <div class="box-body">
+
+                        @csrf
+
+                  <div class="form-group">
+                    <label >Semister: 1</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p1">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 2</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p2">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 3</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p3">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 4</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p4">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 5</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p5">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 6</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p6">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 7</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p7">
+                </div>
+
+                <div class="form-group">
+                    <label >Semister: 8</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="p8">
+                </div>
+
+                <div class="form-group">
+                    <label >others 1</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="o1">
+                </div>
+
+                <div class="form-group">
+                    <label >others 1</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="o2">
+                </div>
+
+                <div class="form-group">
+                    <label >Total Ammount</label>
+                    <input type="number" class="form-control" placeholder="Ammount" name="total">
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary" name="create">Create Department</button>
+                </div>
+              </form>
+            </div>
+
+          @endisset
 
         </div>
         <!--/.col (left) -->
