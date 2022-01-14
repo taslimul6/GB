@@ -73,6 +73,7 @@ class AdminPageController extends Controller
     public function pr()
     { 
         if(request('payslip')){
+            $all = Session::all();
             $src = request()->validate([
                 'payslip' => 'required|exists:transactions,payslip'
             ]);
@@ -90,12 +91,14 @@ class AdminPageController extends Controller
                 
                 'pays' => $pays,
                 'i' => $i=1,
+                'all'=>$all
                 
 
             ]);
 
         }
         if(request('trans')){
+            $all = Session::all();
             $src = request()->validate([
                 'trans' => 'required|exists:transactions,id'
             ]);
@@ -113,12 +116,14 @@ class AdminPageController extends Controller
                 
                 'pays' => $pays,
                 'i' => $i=1,
+                'all'=>$all
                 
 
             ]);
 
         }
         if(request('d')){
+            $all = Session::all();
             $src = request('date');
             $pays = Transaction::where('created_at', 'like' ,'%'. $src . '%' )->get();
             $sum = 0;
@@ -133,10 +138,12 @@ class AdminPageController extends Controller
                 'pays' => $pays,
                 'i' => $i=1,
                 'sum'=>$sum,
+                'all'=>$all
             ]);
         }
 
         if(request('month')){
+            $all = Session::all();
             $src = request('month');
             $pays = Transaction::where('created_at', 'like' ,'%'. $src . '%' )->get();
             $sum = 0;
@@ -150,6 +157,7 @@ class AdminPageController extends Controller
                 'pays' => $pays,
                 'i' => $i=1,
                 'sum'=>$sum,
+                'all'=>$all
                
             ]);
 
