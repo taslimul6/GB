@@ -7,7 +7,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Student Enrollment Page
+        Individual Transaction Report
        
       </h1>
       
@@ -19,6 +19,13 @@
         <div class="container bg-white">
             <div class="row">
                 <div class="col-md-12">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                      <div class="alert alert-danger">{{$error}}</div>
+                      
+                    @endforeach
+                    
+                  @endif
                     <!-- general form elements -->
                     <div class="box box-primary">
                       <div class="box-header with-border">
@@ -53,6 +60,7 @@
                   </div>
 
             </div>
+            
 
 
 
@@ -257,71 +265,83 @@
                 </div>
               </div>
             </div>
+       
             <div class="row">
-                <div class="col-md-12">
-                    <!-- general form elements -->
-                    <div class="box box-primary">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Enrollment form</h3>
-                      </div>
-                      <!-- /.box-header -->
-                      <!-- form start -->
-
-
-                      <form role="form" method="post"  action="{{route('enrollment.store')}}">
-                        @csrf
-                        
-                        
-                        <div class="box-body">
-
-                          
-                            
-                            <input name="student_id" type="hidden" class="form-control" value="{{$data->student_id}}">
-                          
-                          
-                          <div class="form-group">
-
-                            <label >Semester</label>
-                            <select class="form-control" name="semester_id">
-                                @foreach($sems as $sem )
-      
-                                  <option value="{{$sem->id}}"> {{$sem->name}} </option>
-                                @endforeach
-                            </select>
-                          </div>
-
-                          <div class="form-group">
-                            <label >Session</label>
-                            <select class="form-control" name="session_id">
-                                @foreach($sess as $ses )
-      
-                                  <option value="{{$ses->id}}"> {{$ses->title}} </option>
-                                @endforeach
-                            </select>
-                          </div>
-
-                          <div class="box-footer">
-                            <button type="submit" name="enroll" class="btn btn-primary">Enroll Student</button>
-                          </div>
-                          
-                        </div>
-                        <!-- /.box-body -->
-                    </form>
-                    
-          
-                        
+               
+                <div class="col-xs-12" style="padding: 0 !important;">
+                  <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">
+                        Transactions Report
+                           
+                        </h3>
+        
                       
                     </div>
-                    <!-- /.box -->
-          
-                  </div>
+                    
+        
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                      <table class="table table-hover">
+                        <tr>
+                          <th>SN</th>
+                          <th>Date</th>
+                          <th>Session</th>
+                          <th>Semester</th>
+                          <th>Payment Details</th>
+                          <th>Amount</th>
+                          <th>Last Update</th>
+                          
+                          
+                        </tr>
+                        
+                        
+                        
+                            
+                        @foreach ($pays as $pay)
+                            
+                        
+                        <tr>
+                          <td>{{$i++}}</td>
+                          <td>{{$pay->created_at}}</td>
+                          <td>{{$pay->session_id}}</td>
+                          <td>{{$pay->semester_id}}</td>
+                          <td>{{$pay->details}}
+                            <p style="margin-bottom:0 !important"> <span style="color:red">TranslationID no:</span>  {{$pay->id}}</p>
+                            <p style="margin-bottom:0 !important"> Payslip no: {{$pay->payslip}}</p>
+                        </td>
+                          <td>{{$pay->amount}}</td>
+                          <td>{{$pay->updated_at}}</td>
+                          
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td></td>
+                          <td> </td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                              <b>Total Amount:<b>
+                            
+                          </td>
+                          <td> {{$sum}}</td>
+                          <td></td>
 
+                        </tr>
+                        
+                      </table>
+                    </div>
+                    <!-- /.box-body -->
+                  </div>
+                  <!-- /.box -->
+                </div>
             </div>
            
            
 
             
-            @endif
+            
+              @endif
           </div>
        
      

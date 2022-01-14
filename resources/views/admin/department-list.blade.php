@@ -56,10 +56,10 @@
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tr>
-                  <th>Number</th>
-                  <th>Department Name</th>
-                  <th>Program Name</th>
-                  
+                  <th><h4>SN</h4></th>
+                  <th><h4>Department Name</h4></th>
+                  <th><h4>Program Name</h4></th>
+                  <th><></th>
                   <th><></th>
                 </tr>
                 
@@ -68,7 +68,7 @@
                 
                 <tr>
                   <td>{{ $i++ }}</td>
-                  <td><a href="{{route('student.show', $data->id)}}">{{ $data->name }}</td>
+                  <td><b>{{ $data->name }}</b></td>
                   <td>{{ $data->course_name }}</td>
                   
                   

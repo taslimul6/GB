@@ -45,12 +45,55 @@ class AdminDepController extends Controller
         
         $test = Department::create($dept);
 
-        for ($x = 1; $x = 8; $x++) {
 
-            $dpay = new Dpay;
-            $dpay-> department_id = $test->id;
-            $dpay-> semester_id = $x;
-          }
+
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 1;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 2;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 3;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 4;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 5;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 6;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 7;
+        $dpay->save();
+
+        $dpay = new Dpay;
+        $dpay-> department_id = $test->id;
+        $dpay-> semester_id = 8;
+        $dpay->save();
+
+        
+          
+        $sem1 = Dpay::where([
+            ['department_id', '=', $test->id],
+            ['semester_id', '=', '1'],
+        ])->get();
         
 
         
@@ -58,6 +101,7 @@ class AdminDepController extends Controller
             'next' => $test,
             'name' => $name,
             'course' => $course,
+            'sem1' => $sem1,
         ]);
 
         }else{
@@ -128,6 +172,8 @@ class AdminDepController extends Controller
     {
         $test = Department::find($id);
         $test->delete();
+        $dpay = Dpay::where('department_id' , '=' , $id);
+        $dpay->delete();
         return back()->withMessage('Department Deleted Successfully');
     }
 }

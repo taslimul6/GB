@@ -7,14 +7,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Simple Tables
-        <small>preview of simple tables</small>
+        Payment Entry Page
+       
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Simple</li>
-      </ol>
+      
     </section>
 
     <!-- Main content -->
@@ -274,13 +270,13 @@
                     <!-- general form elements -->
                     <div class="box box-primary">
                       <div class="box-header with-border">
-                        <h3 class="box-title">Enrollment form</h3>
+                        <h3 class="box-title">Payment Entry Form</h3>
                       </div>
                       <!-- /.box-header -->
                       <!-- form start -->
 
 
-                      <form role="form" method="post"  action="{{route('enrollment.store')}}">
+                      <form role="form" method="post"  action="{{route('payment.store')}}">
                         @csrf
                         
                         
@@ -289,19 +285,20 @@
                           
                             
                             <input name="student_id" type="hidden" class="form-control" value="{{$data->student_id}}">
-                          
-                          
                           <div class="form-group">
+                            <label >Payment Type </label>
+                            <select class="form-control" name="details">
 
-                            <label >Semester</label>
-                            <select class="form-control" name="semester_id">
-                                @foreach($sems as $sem )
-      
-                                  <option value="{{$sem->id}}"> {{$sem->name}} </option>
-                                @endforeach
+                              <option > Admission Fees </option>
+                              <option > Library Fees </option>
+                              <option > Semester Fees </option>
+                              <option > Improvement Fees </option>
+                              <option > Others </option>
+
+                              
                             </select>
                           </div>
-
+                        
                           <div class="form-group">
                             <label >Session</label>
                             <select class="form-control" name="session_id">
@@ -311,9 +308,31 @@
                                 @endforeach
                             </select>
                           </div>
+                          <div class="form-group">
+                            <label >Semester</label>
+                            <select class="form-control" name="semester_id">
+                                
+                              @foreach($sess as $ses )
+                              <option value="{{$ses->id}}"> {{$ses->title}} </option>
+                            @endforeach
+                              
+                                
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label >Amount</label>
+                            <input type="number" class="form-control" name='amount'>
+                          </div>
+                          <div class="form-group">
+                            <label >Payslip No:</label>
+                            <input type="number" class="form-control" name='payslip'>
+                            
+                          </div>
+
+                          
 
                           <div class="box-footer">
-                            <button type="submit" name="enroll" class="btn btn-primary">Enroll Student</button>
+                            <button type="submit" name="enroll" class="btn btn-primary">Add Transaction</button>
                           </div>
                           
                         </div>

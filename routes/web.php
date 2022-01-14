@@ -26,9 +26,7 @@ Route::get('/student', function () {
     return view('student.index');
 });
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
+Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
 
 
 Route::resource("admin/session" , AdminSesController::class);
@@ -41,3 +39,7 @@ Route::resource('admin/enrollment', AdminEnrollController::class);
 
 Route::resource('admin/payment', AdminPaymentController::class);
 Route::get('admin/due/department' , [AdminPageController::class , 'due'])->name('payment.due');
+Route::get('admin/tution-fees' , [AdminPageController::class , 'tution'])->name('tution');
+Route::put('admin/tution-fees' , [AdminPageController::class , 'tutionStore'])->name('tutionStore');
+Route::get('admin/payment-report' , [AdminPageController::class , 'pr'])->name('pr');
+Route::get('admin/payment-single' , [AdminPageController::class , 'singleTnx'])->name('singleTnx');

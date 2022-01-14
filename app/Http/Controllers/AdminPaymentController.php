@@ -76,7 +76,9 @@ class AdminPaymentController extends Controller
     public function store(Request $request)
     { 
        
-
+        $info = $request->all();
+        $test = Transaction::create($info);
+        return redirect()->back();
     }
 
     /**

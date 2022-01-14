@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>GB Finance | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -48,7 +48,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>GB</b>Finance</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -60,7 +60,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
+          {{-- <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
@@ -255,25 +255,24 @@
                 <a href="#">View all tasks</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              
+              <span class="hidden-xs">Logged User Name</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                
                 <p>
-                  Alexander Pierce - Web Developer
+                  Name Joined date
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              {{-- <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -286,7 +285,7 @@
                   </div>
                 </div>
                 <!-- /.row -->
-              </li>
+              </li> --}}
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -312,13 +311,7 @@
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
-        <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
+        
       </div>
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
@@ -334,12 +327,10 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
-          <a href="#">
+        <li >
+          <a href="{{route('admin')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            
           </a>
           
         </li>
@@ -355,10 +346,23 @@
           <ul class="treeview-menu">
             <li><a href="{{route('student.index')}}"><i class="fa fa-circle-o"></i>Student List</a></li>
             <li><a href="{{route('student.create')}}"><i class="fa fa-circle-o"></i> Create Student</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Edit Student</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+            
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-pie-chart"></i>
+              <span>Enrollments</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="{{route('enrollment.index')}}"><i class="fa fa-circle-o"></i>Student Enrollment</a></li>
+              
+              
+          </ul>
+      </li>
         <li class="treeview">
             <a href="#">
               <i class="fa fa-pie-chart"></i>
@@ -370,6 +374,7 @@
             <ul class="treeview-menu">
               <li><a href="{{route("department.index")}}"><i class="fa fa-circle-o"></i>Department List</a></li>
               <li><a href="{{route("department.create")}}"><i class="fa fa-circle-o"></i> Create Department</a></li>
+              <li><a href="{{route("tution")}}"><i class="fa fa-circle-o"></i> Tution Fees</a></li>
              
             </ul>
           </li>
@@ -389,6 +394,21 @@
         </ul>
         </li>
         <li class="treeview">
+          <a href="#">
+              <i class="fa fa-pie-chart"></i>
+              <span>Payment Entry</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="{{route('payment.index')}}"><i class="fa fa-circle-o"></i>Individual Entry</a></li>
+              
+              
+          </ul>
+      </li>
+     
+        <li class="treeview">
             <a href="#">
                 <i class="fa fa-pie-chart"></i>
                 <span>Payment Report</span>
@@ -397,40 +417,14 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>Individual Report</a></li>
+                <li><a href="{{route('singleTnx')}}"><i class="fa fa-circle-o"></i>Individual Report</a></li>
                 <li><a href="{{route('payment.due')}}"><i class="fa fa-circle-o"></i>Departmental Report</a></li>
+                <li><a href="{{route('pr')}}"><i class="fa fa-circle-o"></i>Advance Report</a></li>
                 
                 
             </ul>
         </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Payment Entry</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{{route('payment.index')}}"><i class="fa fa-circle-o"></i>Individual Entry</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> </a></li>
-                
-            </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-              <i class="fa fa-pie-chart"></i>
-              <span>Enrollments</span>
-              <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-              <li><a href="{{route('enrollment.index')}}"><i class="fa fa-circle-o"></i>Student Enrollment</a></li>
-              
-              
-          </ul>
-      </li>
+        
 
 
         
@@ -447,9 +441,9 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
+      <b>Version</b> 1.0.18
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    <strong>Copyright &copy; 2022 <a href="https://taslimul.com">GB Finance</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -473,15 +467,15 @@
 <script src="{{ asset("assets/js/raphael.min.js")}}"></script>
 <script src="{{ asset("assets/js/morris.min.js")}}"></script>
 <!-- Sparkline -->
-<script src="{{ asset("assets/js/jquery.sparkline.min.js")}}"></script>
+{{-- <script src="{{ asset("assets/js/jquery.sparkline.min.js")}}"></script> --}}
 <!-- jvectormap -->
-<script src="{{ asset("assets/js/jquery-jvectormap-1.2.2.min.js")}}"></script>
-<script src="{{ asset("assets/js/jquery-jvectormap-world-mill-en.js")}}"></script>
+{{-- <script src="{{ asset("assets/js/jquery-jvectormap-1.2.2.min.js")}}"></script>
+<script src="{{ asset("assets/js/jquery-jvectormap-world-mill-en.js")}}"></script> --}}
 <!-- jQuery Knob Chart -->
 <script src="{{ asset("assets/js/jquery.knob.min.js")}}"></script>
 <!-- daterangepicker -->
 <script src="{{ asset("assets/js/moment.min.js")}}"></script>
-<script src="{{ asset("assets/js/daterangepicker.js")}}"></script>
+{{-- <script src="{{ asset("assets/js/daterangepicker.js")}}"></script> --}}
 <!-- datepicker -->
 <script src="{{ asset("assets/js/bootstrap-datepicker.min.js")}}"></script>
 <!-- Bootstrap WYSIHTML5 -->
@@ -495,6 +489,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset("assets/js/dashboard.js")}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ asset("assets/js/demo.js")}}"></script>
+{{-- <script src="{{ asset("assets/js/demo.js")}}"></script> --}}
 </body>
 </html>
