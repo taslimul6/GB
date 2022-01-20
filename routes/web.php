@@ -43,3 +43,5 @@ Route::get('admin/tution-fees' , [AdminPageController::class , 'tution'])->name(
 Route::put('admin/tution-fees' , [AdminPageController::class , 'tutionStore'])->name('tutionStore');
 Route::get('admin/payment-report' , [AdminPageController::class , 'pr'])->name('pr');
 Route::get('admin/payment-single' , [AdminPageController::class , 'singleTnx'])->name('singleTnx');
+Route::get('admin/current-session' , [AdminPageController::class , 'crnts'])->name('crnts');
+Route::put('admin/current-session' , [AdminPageController::class , 'crstore'])->name('crnts.store');

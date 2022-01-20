@@ -8,6 +8,7 @@ use App\Models\Semester;
 use App\Models\Session;
 use App\Models\Enrollment;
 use App\Models\Status;
+use App\Models\Department;
 use Illuminate\Support\Facades\DB;
 
 class AdminEnrollController extends Controller
@@ -50,7 +51,29 @@ class AdminEnrollController extends Controller
      */
     public function create()
     {
-        //
+        //Auto Enrollment Page
+        $all = Department::all();
+        $sess = Session::all();
+        $department_id = request('department_id');
+        $session_id = request('session_id');
+        $semester_id = request('semester_id');
+
+        if(request('next')==1){
+            $status = status::firstWhere([
+                ['department_id' ,'=' , $department_id],
+                ['session_id' ,'=' , $session_id],
+                ['semester_id' ,'=' , $semester_id],
+            ]);
+            
+            return view('admin.enrollment-auto' , compact('all' , 'department_id' , 'sess' , 'session_id' ,'status'));
+
+        }else{
+            return view('admin.enrollment-auto' , compact('all' , 'department_id' , 'sess' , 'session_id' ));
+        }
+
+       
+
+        
     }
 
     /**

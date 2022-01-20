@@ -19,6 +19,13 @@
      
         <div class="row">
             <div class="col-xs-12">
+              @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                      <div class="alert alert-danger">{{$error}}</div>
+                      
+                    @endforeach
+                    
+                  @endif
               <div class="box box-default">
                 <div class="box-header with-border">
                   <h3 class="box-title"></h3>

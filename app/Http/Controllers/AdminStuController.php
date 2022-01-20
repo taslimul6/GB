@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Department;
 use App\Models\Session;
 use App\Models\Status;
+use App\Models\Dpay;
 use Illuminate\Pagination;
 
 class AdminStuController extends Controller
@@ -29,7 +30,7 @@ class AdminStuController extends Controller
 
         return view('admin.student-list',[
             'all' => $all,
-            'src' => $src
+            'src' => $src 
         ]);
     }
 
@@ -43,13 +44,20 @@ class AdminStuController extends Controller
         $deps = Department::all();
         $sess = Session::all();
 
+      
+
+       
+        
+
 
         // 
 
 
         return view('admin.student-create', [
             'deps'=> $deps,
-            'sess'=> $sess
+            'sess'=> $sess,
+            
+            
         ]);
     }
 
@@ -82,13 +90,14 @@ class AdminStuController extends Controller
             'class_roll'=> 'required|integer',
             'exam_roll'=> 'required|integer',
             'department_id'=> 'required|integer',
+            'email' => 'required|unique:users|email',
             // 'dob' => 'required|date|date_format:Y-m-d'
 
 
         ]);
         $val= $request->validate([
             'student_id'=> 'required|integer|unique:users',
-            'email' => 'required|unique:users|email',
+            
             'password' => 'required|min:8'
             
         ]);
@@ -104,9 +113,60 @@ class AdminStuController extends Controller
 
         Student::Create($student_info);
 
-        $status = new Status;
-        $status-> student_id = $request->student_id;
-        $status->save();
+
+
+        // adding curent tution fees on student profile at status table.
+        $department_id = $request->department_id;
+        $sem1 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '1'],
+        ])->get()->first();
+        $sem2 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '2'],
+        ])->get()->first();
+        $sem3 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '3'],
+        ])->get()->first();
+        $sem4 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '4'],
+        ])->get()->first();
+        $sem5 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '5'],
+        ])->get()->first();
+        $sem6 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '6'],
+        ])->get()->first();
+        $sem7 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '7'],
+        ])->get()->first();
+        $sem8 = Dpay::where([
+            ['department_id', '=', $department_id],
+            ['semester_id', '=', '8'],
+        ])->get()->first();
+
+        
+    
+
+        $tution = new Status;
+        $tution-> student_id = $request->student_id;
+        $tution-> department_id = $request->department_id;
+        $tution-> p1 = $sem1-> amount;
+        $tution-> p2 = $sem2-> amount;
+        $tution-> p3 = $sem3-> amount;
+        $tution-> p4 = $sem4-> amount;
+        $tution-> p5 = $sem5-> amount;
+        $tution-> p6 = $sem6-> amount;
+        $tution-> p7 = $sem7-> amount;
+        $tution-> p8 = $sem8-> amount;
+       
+       
+        $tution-> save();
 
 
        return redirect()->back()->withMessage('Student Created Successfully');
@@ -122,8 +182,10 @@ class AdminStuController extends Controller
     {
 
         $user = Student::where('id' , '=' , $id)->first();
+        $status = Status::where('student_id' , '=' , $id)->first();
         return view('admin.student-show' , [
-            'data' => $user
+            'data' => $user,
+            'status' => $status,
         ]);
     }
 

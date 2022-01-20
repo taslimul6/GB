@@ -282,11 +282,15 @@
                           <div class="form-group">
 
                             <label >Semester</label>
-                            <select class="form-control" name="semester_id">
-                                @foreach($sems as $sem )
-      
-                                  <option value="{{$sem->id}}"> {{$sem->name}} </option>
-                                @endforeach
+                            <select name="semester_id" class="form-control">
+                              <option value="1">1st Semester</option>
+                              <option value="2">2nd Semester</option>
+                              <option value="3">3rd Semester</option>
+                              <option value="4">4th Semester</option>
+                              <option value="5">5th Semester</option>
+                              <option value="6">6th Semester</option>
+                              <option value="7">7th Semester</option>
+                              <option value="8">8th Semester</option>
                             </select>
                           </div>
 

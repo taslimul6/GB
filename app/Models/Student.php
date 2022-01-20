@@ -29,13 +29,13 @@ class Student extends Model
         'class_roll',
         'exam_roll',
         'department_id',
+        'email'
         
         
     ];
     public function department(){
         return $this->belongsTo(Department::class);
      }
-     public function user(){
-        return $this->hasOne(User::class , 'stud_id');
-     }
+  
+    
 }

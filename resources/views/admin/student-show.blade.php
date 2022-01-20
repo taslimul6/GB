@@ -206,8 +206,12 @@
                     <td> </td>
                   </tr>
                   <tr>
+                    <th class="smk-w-30"> Current Session: </td>
+                    <td>{{ $status->session->title }}</td>
+                  </tr>
+                  <tr>
                     <th class="smk-w-30"> Current Semester: </td>
-                    <td>{{ $data->full_name }}</td>
+                    <td>{{ $status->semester_id }}</td>
                   </tr>
                  
                   

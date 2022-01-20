@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\Semester;
 use App\Models\Session;
 use App\Models\Transaction;
+use App\Models\crsession;
 
 class AdminPageController extends Controller
 {   
@@ -350,5 +351,26 @@ class AdminPageController extends Controller
         }
 
 
+    }
+    public function crnts(){
+        $sess = Session::all();
+        $cs=null;
+        $cs = crsession::where('id', '=', '1')->get()->first();
+        return view('admin.session-current', [
+            
+            'sess'=> $sess,
+            'cs'=> $cs,
+        ]);
+    }
+
+    public function crstore(){
+        if(request('session_id')){
+
+            $ses = crsession::where('id', '=', '1')->update(['session_id' => request('session_id')]);
+
+            return redirect()->back();
+
+        }
+       
     }
 }

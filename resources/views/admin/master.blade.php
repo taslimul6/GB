@@ -359,6 +359,7 @@
           </a>
           <ul class="treeview-menu">
               <li><a href="{{route('enrollment.index')}}"><i class="fa fa-circle-o"></i>Student Enrollment</a></li>
+              <li><a href="{{route('enrollment.create')}}"><i class="fa fa-circle-o"></i>Auto Enrollment</a></li>
               
               
           </ul>
@@ -390,6 +391,7 @@
         <ul class="treeview-menu">
             <li><a href="{{route('session.index')}}"><i class="fa fa-circle-o"></i>Session List</a></li>
             <li><a href="{{route('session.create')}}"><i class="fa fa-circle-o"></i>Create Session</a></li>
+            <li><a href="{{route('crnts')}}"><i class="fa fa-circle-o"></i>Current Session</a></li>
             
         </ul>
         </li>
