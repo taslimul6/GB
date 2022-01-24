@@ -289,8 +289,10 @@
                           <th>Session</th>
                           <th>Semester</th>
                           <th>Payment Details</th>
-                          <th>Amount</th>
-                          <th>Last Update</th>
+                          <th>Debit</th>
+                          <th>Credit</th>
+                          <th>Balance</th>
+                          
                           
                           
                         </tr>

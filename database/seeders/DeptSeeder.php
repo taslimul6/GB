@@ -19,11 +19,11 @@ class DeptSeeder extends Seeder
     {
         $faker = Factory::create();
         
-        for($i=0; $i<10; $i++):
+        
         $user = [
            
-            'name' => $faker-> realText(40),
-            'course_name' => $faker ->text(50),
+            'name' => 'Department of CSE',
+            'course_name' => 'B.sc on CSE',
 
            
             
@@ -35,6 +35,6 @@ class DeptSeeder extends Seeder
     
     DB::table('departments') -> insert($user);
     
-        endfor;
+        
     }
 }

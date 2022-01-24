@@ -103,18 +103,10 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              @isset($active)
-              {{dd($active)}}
-              @endisset
-
-              @isset($status)
-              <form action="{{route('enrollment.create')}}" method="get">
-                @csrf
               <table class="table table-hover">
                 <tr>
                 
                   <tr>
-                    <th>Select</th>
                     <th>Studnet ID</th>
                     <th>Exam Roll</th>
                     <th>Full Name</th>
@@ -124,15 +116,13 @@
                   </tr>
                   
                 </tr>
-               
-               
+                @isset($status)
                   @foreach ($status as $data)
                   <tr>
                    
-                    <td> <input type="checkbox" name="active[]" id="" value="{{$data->student_id}}"></td>
                     <td> {{$data->student_id}}</td>
                     <td> {{$data->student->exam_roll}}</td>
-                    <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                    <td><a href="{{route('student.show', $data->student_id)}}">{{ $data->student->full_name }}</a></td>
                     <td> {{$data->semester_id}}</td>
                     <td> {{$data->session->title}}</td>
                     
@@ -140,11 +130,11 @@
                   </tr>
                       
                   @endforeach
+                @endisset
+                
+               
                 
               </table>
-                    <input class="form-control " type="submit" value="Auto Enroll">
-              </form>
-              @endisset
             </div>
             <!-- /.box-body -->
           </div>

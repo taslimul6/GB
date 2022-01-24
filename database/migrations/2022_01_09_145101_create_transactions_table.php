@@ -19,8 +19,9 @@ class CreateTransactionsTable extends Migration
             $table->integer('session_id');
             $table->integer('semester_id');
             $table->string('details');
-            $table->integer('amount');
-            $table->integer('payslip');
+            $table->integer('debit')->nullable();
+            $table->integer('credit')->nullable();
+            $table->integer('payslip')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

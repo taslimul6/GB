@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Status extends Model
 {
@@ -25,10 +26,11 @@ class Status extends Model
         
     ];
     public function session(){
-        return $this->belongsTo(Session::class);
+        return $this->belongsTo(Session::class );
      }
     public function student(){
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class , 'id' );
      }
+    
 
 }

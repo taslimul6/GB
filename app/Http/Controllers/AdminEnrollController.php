@@ -49,8 +49,9 @@ class AdminEnrollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(Request $request)
+    {   
+       
         //Auto Enrollment Page
         $all = Department::all();
         $sess = Session::all();
@@ -59,15 +60,23 @@ class AdminEnrollController extends Controller
         $semester_id = request('semester_id');
 
         if(request('next')==1){
-            $status = status::firstWhere([
+            $val=$request->validate([
+                'department_id'=>'required|exists:statuses,department_id',
+                'session_id'=>'required|exists:statuses,session_id',
+                'semester_id'=>'required|exists:statuses,semester_id',
+            ]);
+            $status = status::where([
                 ['department_id' ,'=' , $department_id],
                 ['session_id' ,'=' , $session_id],
                 ['semester_id' ,'=' , $semester_id],
-            ]);
+            ])->get();
+           
             
-            return view('admin.enrollment-auto' , compact('all' , 'department_id' , 'sess' , 'session_id' ,'status'));
+            return view('admin.enrollment-auto' , compact('all' , 'department_id' , 'sess' , 'session_id' ,'status' ));
 
-        }else{
+        }
+     
+        else{
             return view('admin.enrollment-auto' , compact('all' , 'department_id' , 'sess' , 'session_id' ));
         }
 
@@ -144,5 +153,23 @@ class AdminEnrollController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function auto(Request $request){
+        
+        
+ 
+
+        foreach($request->active as $act )
+        { 
+            $up = DB::table('statuses')
+            ->where('student_id' , $act)
+            ->update([
+                'semester_id' => '1',
+                'session_id' => '1',
+
+        ]);
+        }
+        
+
     }
 }

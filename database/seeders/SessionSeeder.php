@@ -19,10 +19,10 @@ class SessionSeeder extends Seeder
     {
         $faker = Factory::create();
         
-        for($i=0; $i<10; $i++):
+       
         $user = [
            
-            'title' => $faker-> realText(15),
+            'title' => 'April-2021',
           
             
             
@@ -33,6 +33,6 @@ class SessionSeeder extends Seeder
     
     DB::table('sessions') -> insert($user);
     
-        endfor;
+        
     }
 }

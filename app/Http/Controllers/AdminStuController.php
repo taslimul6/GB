@@ -182,7 +182,7 @@ class AdminStuController extends Controller
     {
 
         $user = Student::where('id' , '=' , $id)->first();
-        $status = Status::where('student_id' , '=' , $id)->first();
+        $status = Status::where('student_id' , '=' , $user->student_id)->first();
         return view('admin.student-show' , [
             'data' => $user,
             'status' => $status,
@@ -221,5 +221,32 @@ class AdminStuController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function depByStu(Request $request){
+        //Auto Enrollment Page
+        $all = Department::all();
+        $sess = Session::all();
+        $department_id = request('department_id');
+        $session_id = request('session_id');
+        $semester_id = request('semester_id');
+
+        if(request('next')==1){
+            $val=$request->validate([
+                'department_id'=>'required|exists:statuses,department_id',
+                'session_id'=>'required|exists:statuses,session_id',
+                'semester_id'=>'required|exists:statuses,semester_id',
+            ]);
+            $status = status::where([
+                ['department_id' ,'=' , $department_id],
+                ['session_id' ,'=' , $session_id],
+                ['semester_id' ,'=' , $semester_id],
+            ])->get();
+            
+            return view('admin.student-status' , compact('all' , 'department_id' , 'sess' , 'session_id' ,'status'));
+
+        }else{
+            return view('admin.student-status' , compact('all' , 'department_id' , 'sess' , 'session_id' ));
+        }
+
     }
 }

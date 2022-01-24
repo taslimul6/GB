@@ -28,23 +28,26 @@ class AdminPaymentController extends Controller
             $sems = Semester::all();
             $sess = Session::all();
             $pays = Transaction::where('student_id', '=' , $src)->get()->all();
+            $status = Status::where('student_id', '=' , $src)->get()->first();
 
             //adding payments of students
-            $sum = 0;
-                foreach($pays as $pay)
-                {
-                $sum+= $pay->amount;
-                }
-                
-            
+          
+           
+
+            // foreach($pays as $pay){
+            //     $balance = $pay->debit ;
+            // }
+
             
             return view('admin.payment-entry' , [
                 'data' => $user,
                 'sems' => $sems,
                 'sess' => $sess,
                 'pays' => $pays,
+                'status'=>$status,
                 'i' => $i=1,
-                'sum' =>$sum,
+                
+               
 
             ]);
 
@@ -75,10 +78,62 @@ class AdminPaymentController extends Controller
      */
     public function store(Request $request)
     { 
-       
-        $info = $request->all();
-        $test = Transaction::create($info);
-        return redirect()->back();
+       if($request->type == 'debit'){
+
+            $pays = Transaction::where('student_id', '=' , $request->student_id)->get()->all();
+            $balance = $request->amount;
+            foreach($pays as $pay)
+            {
+            $balance+= $pay->debit;
+            $balance-=$pay->credit;
+            }
+            $stat = Status::where('student_id', '=' , $request->student_id)->update(['balance' =>   $balance]);
+            
+            $up = new Transaction;
+            $up->student_id = $request->student_id;
+            $up->session_id = $request->session_id;
+            $up->semester_id = $request->semester_id;
+            $up->details = $request->details;
+            $up->debit = $request->amount;
+            $up->credit = '0';
+            $up->payslip = $request->payslip;
+            $up->balance =  $balance;
+            if($up->save()){
+                return redirect()->back()->with('message' , 'Transaction Added');
+            }
+
+
+
+        
+       }
+       if($request->type == 'credit'){
+        $pays = Transaction::where('student_id', '=' , $request->student_id)->get()->all();
+        $balance = -$request->amount;
+        foreach($pays as $pay)
+        {
+        $balance+= $pay->debit;
+        $balance-=$pay->credit;
+        }
+        $stat = Status::where('student_id', '=' , $request->student_id)->update(['balance' =>   $balance]);
+
+        $up = new Transaction;
+        $up->student_id = $request->student_id;
+        $up->session_id = $request->session_id;
+        $up->semester_id = $request->semester_id;
+        $up->details = $request->details;
+        $up->debit = '0';
+        $up->credit = $request->amount;
+        $up->payslip = $request->payslip;
+        $up->balance =  $balance;
+        if($up->save()){
+            return redirect()->back()->with('message' , 'Transaction Added');
+        }
+
+   }
+
+
+
+        
     }
 
     /**

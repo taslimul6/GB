@@ -346,6 +346,9 @@
           <ul class="treeview-menu">
             <li><a href="{{route('student.index')}}"><i class="fa fa-circle-o"></i>Student List</a></li>
             <li><a href="{{route('student.create')}}"><i class="fa fa-circle-o"></i> Create Student</a></li>
+            <li><a href="{{route('admin.depByStu')}}"><i class="fa fa-circle-o"></i> Student Status List</a></li>
+
+            
             
           </ul>
         </li>

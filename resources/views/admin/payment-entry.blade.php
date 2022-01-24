@@ -310,17 +310,33 @@
                           </div>
                           <div class="form-group">
                             <label >Semester</label>
-                            <select class="form-control" name="semester_id">
+                            
                                 
-                              @foreach($sess as $ses )
-                              <option value="{{$ses->id}}"> {{$ses->title}} </option>
-                            @endforeach
+                              <select name="semester_id" class="form-control">
+                                <option value="1">1st Semester</option>
+                                <option value="2">2nd Semester</option>
+                                <option value="3">3rd Semester</option>
+                                <option value="4">4th Semester</option>
+                                <option value="5">5th Semester</option>
+                                <option value="6">6th Semester</option>
+                                <option value="7">7th Semester</option>
+                                <option value="8">8th Semester</option>
+                              </select>
                               
                                 
+                            
+                          </div>
+                          <div class="form-group">
+                            <label >Transaction Type </label>
+                            <select class="form-control" name="type">
+
+                              <option value="credit"> Credit (-) </option>
+                              <option value="debit"> Debit (+) </option>
+
                             </select>
                           </div>
                           <div class="form-group">
-                            <label >Amount</label>
+                            <label >Amount:</label>
                             <input type="number" class="form-control" name='amount'>
                           </div>
                           <div class="form-group">
@@ -371,9 +387,9 @@
                           <th>Session</th>
                           <th>Semester</th>
                           <th>Payment Details</th>
-                          <th>Amount</th>
-                          <th>Last Update</th>
-                          
+                          <th>Debit</th>
+                          <th>Credit</th>
+                          <th>Balance</th>
                           
                         </tr>
                         
@@ -386,14 +402,15 @@
                         <tr>
                           <td>{{$i++}}</td>
                           <td>{{$pay->created_at}}</td>
-                          <td>{{$pay->session_id}}</td>
+                          <td>{{$pay->session->title}}</td>
                           <td>{{$pay->semester_id}}</td>
                           <td>{{$pay->details}}
                             <p style="margin-bottom:0 !important"> <span style="color:red">TranslationID no:</span>  {{$pay->id}}</p>
                             <p style="margin-bottom:0 !important"> Payslip no: {{$pay->payslip}}</p>
                         </td>
-                          <td>{{$pay->amount}}</td>
-                          <td>{{$pay->updated_at}}</td>
+                          <td>{{$pay->debit}}</td>
+                          <td>{{$pay->credit}}</td>
+                          <td>{{$pay->balance}}</td>
                           
                         </tr>
                         @endforeach
@@ -406,8 +423,8 @@
                               <b>Total Amount:<b>
                             
                           </td>
-                          <td> {{$sum}}</td>
-                          <td></td>
+                          <td> </td>
+                          <td>{{$status->balance}}</td>
 
                         </tr>
                         

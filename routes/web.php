@@ -32,10 +32,12 @@ Route::get('/admin', [AdminPageController::class, 'index'])->name('admin');
 Route::resource("admin/session" , AdminSesController::class);
 
 Route::resource('admin/student', AdminStuController::class);
+Route::get('admin/depByStu' , [AdminStuController::class , 'depByStu'])->name('admin.depByStu');
 
 Route::resource('admin/department', AdminDepController::class);
 
 Route::resource('admin/enrollment', AdminEnrollController::class);
+Route::post('admin/enrollment/create' , [AdminEnrollController::class , 'auto'])->name('enrollment.auto');
 
 Route::resource('admin/payment', AdminPaymentController::class);
 Route::get('admin/due/department' , [AdminPageController::class , 'due'])->name('payment.due');

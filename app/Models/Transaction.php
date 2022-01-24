@@ -18,4 +18,8 @@ class Transaction extends Model
        
         
     ];
+    public function session(){
+        return $this->belongsTo(Session::class);
+     }
+   
 }

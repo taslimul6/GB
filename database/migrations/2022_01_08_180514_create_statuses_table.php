@@ -30,6 +30,8 @@ class CreateStatusesTable extends Migration
             $table->integer('p7');
             $table->integer('p8');
 
+            $table->integer('balance')->nullable();
+
             $table->timestamps();
         });
     }
