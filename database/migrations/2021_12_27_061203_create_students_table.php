@@ -25,7 +25,6 @@ class CreateStudentsTable extends Migration
             $table->integer('department_id');
             $table ->integer('user_id')->nullable();
             $table->string('email');
-
             $table->date('admission_date')->nullable();
             $table->string('ad_session')->nullable();
 

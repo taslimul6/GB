@@ -33,16 +33,34 @@
     <a href=""><b>GB</b>Finance</a>
   </div>
   <!-- /.login-logo -->
+              @if ($errors->any())
+              @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">{{$error}}</div>
+                
+              @endforeach
+              
+            @endif
+            @if (Session()->has('message')) 
+            
+              <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                
+                {{Session('message')}}
+              </div>
+   
+              
+            @endif
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="../../index2.html" method="post">
+    <form action="{{route('stLogin')}}" method="post">
+      @csrf
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Student ID">
+        <input type="student_id" class="form-control" placeholder="Student ID" name="student_id">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" class="form-control" placeholder="Password" name="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -58,8 +76,7 @@
    
     <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+   
 
   </div>
   <!-- /.login-box-body -->

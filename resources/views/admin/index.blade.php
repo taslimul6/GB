@@ -24,7 +24,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>168</h3>
+              <h3>{{$tst}}</h3>
 
               <h4>Total Students</h4>
             </div>
@@ -39,7 +39,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>15</h3>
+              <h3>{{$tst}}</h3>
 
               <h4>New Students</h4>
             </div>
@@ -54,7 +54,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>19</h3>
+              <h3>{{$deps}} </h3>
 
               <h4>Total Departments</h4>
             </div>
@@ -69,9 +69,9 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>5</h3>
+              <h3>{{$ats}}</h3>
 
-              <p>Todays Transactions</p>
+              <p>Total Transactions</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -230,8 +230,8 @@
             <div class="box-footer clearfix">
 
 
-              <h3>No Online Transaction Found</h3>
-              {{-- <table class="table table-hover">
+              
+           <table class="table table-hover">
                 <tr>
                   
                   <th>Date</th>
@@ -246,75 +246,35 @@
                 </tr>
                 
                 
-               @isset($pays)
+               @isset($opays)
                    
                
                     
-                @foreach ($pays as $pay)
+                @foreach ($opays as $opay)
                     
                 
                 <tr>
                   
-                  <td>{{$pay->created_at}}</td>
+                  <td>{{$opay->created_at}}</td>
                  
-                  <td>{{$pay->session_id}}</td>
+                  <td>{{$opay->session->title}}</td>
                   
-                  <td>{{$pay->details}}
-                    <p style="margin-bottom:0 !important"> <span style="color:red">TranslationID no:</span>  {{$pay->id}}</p>
-                    <p style="margin-bottom:0 !important"> Payslip no: {{$pay->payslip}}</p>
+                  <td>{{$opay->details}}
+                    <p style="margin-bottom:0 !important"> <span style="color:red">Bank no:</span>  {{$opay->bank_ac}}</p>
+                    <p style="margin-bottom:0 !important"> bank tnxid no: {{$opay->bank_tnxid}}</p>
                 </td>
-                  <td>{{$pay->amount}}</td>
+                  <td>{{$opay->credit}}</td>
                   
                   
                 </tr>
                 @endforeach
                 @endisset
                 
-              </table> --}}
+              </table> 
             </div>
           </div>
            <!-- New payment widget -->
-           <div class="box box-info">
-            <div class="box-header">
-              <i class="fa fa-envelope"></i>
-
-              <h3 class="box-title">Latest Enrollment</h3>
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-               
-              </div>
-              <!-- /. tools -->
-            </div>
-            <div class="box-body">
-              
-            </div>
-            <div class="box-footer clearfix">
-
-              <h3>No Enrollment Found</h3>
-              {{-- <table class="table table-hover">
-                <tr>
-                  <th>Joined at</th>
-                  <th>Studnet ID</th>
-                  <th>Full Name</th>
-                  <th>Contact</th>
-                  
-                </tr>
-                @foreach ($all as $data)
-                    
-                
-                <tr>
-                  <td>{{ $data->created_at }}</td>
-                  <td>{{ $data->student_id }}</td>
-                  <td><a href="{{route('student.show', $data->id)}}">{{ $data->full_name }}</a></td>
-                  <td>{{ $data->phone }}</td>
-                 
-                </tr>
-                @endforeach
-                
-              </table> --}}
-            </div>
-          </div>
-
+           
         </section>
         <!-- right col -->
       </div>

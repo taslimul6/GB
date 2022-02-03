@@ -1,105 +1,159 @@
 @extends('admin.master')
 
-
 @section('content')
-
-   <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        All Departments
-        <small>Click on the name for details</small>
+        Departmental Student Due Report
+        <small> </small>
       </h1>
-
+     
     </section>
 
     <!-- Main content -->
     <section class="content">
-     
- 
       <div class="row">
         @if (Session()->has('message')) 
         <div class="col-md-12">
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-           
-           {{Session('message')}}
-          </div>
+          @if ($errors->any())
+          @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{$error}}</div>
+            
+          @endforeach
+          
+        @endif
+          
         </div>
         @endif
+        <!-- left column -->
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" method="get"  >
+                        
+                        
+                <div class="box-body">
+                  <div class="form-group">
+                    <label >Select Department</label>
+                    <select name="department_id" class="form-control">
+                        @foreach ($all as $dep)
+                        <option value="{{$dep->id}}" @if ($dep->id == $department_id)
+                            Selected
+                        @endif>{{$dep->name}}</option>
+                        @endforeach
+                        
+                    </select>
+                    <label >Select Semester</label>
+                    <select name="semester_id" class="form-control">
+                      <option value="1">1st Semester</option>
+                      <option value="2">2nd Semester</option>
+                      <option value="3">3rd Semester</option>
+                      <option value="4">4th Semester</option>
+                      <option value="5">5th Semester</option>
+                      <option value="6">6th Semester</option>
+                      <option value="7">7th Semester</option>
+                      <option value="8">8th Semester</option>
+                    </select>
+                    <label >Select Session</label>
+                    <select name="session_id" class="form-control">
+                        @foreach ($sess as $ses)
+                        <option value="{{$ses->id}}" @if ($ses->id == $session_id)
+                            Selected
+                        @endif>{{$ses->title}}</option>
+                        @endforeach
+                        
+                    </select>
+                    
+                  </div>
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary" name='next' value='1'>Next</button>
+                  </div>
+                  
+                </div>
+                <!-- /.box-body -->
+            </form>
+          <!-- /.box -->
+          
+
+      
+
+        </div>
+        <!--/.col (left) -->
+      </div>
+    </div>
+      <!-- /.row -->
+      <div class="row">
+        
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-                  @if($src)
-                  Search result for : "{{$src}}"
-                    @else Student Due List
-                    @endif
+                   Student Information
+                    
                 </h3>
 
-              <div class="box-tools">
-                  <form action="{{route('department.index')}}" mathod='get'>
-                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                        <input type="text" name="src" class="form-control pull-right" placeholder="Search">
-
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                        </div>
-                    </form>
-              </div>
+              
             </div>
             
 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
+              @isset($active)
+              {{dd($active)}}
+              @endisset
+
+              @isset($status)
+             
               <table class="table table-hover">
                 <tr>
-                  <th>Number</th>
-                  <th>Department Name</th>
-                  <th>Program Name</th>
-                  
-                  <th><></th>
-                </tr>
                 
-                {{-- @foreach ($all as $data)
-                    
-                
-                <tr>
-                  <td>{{ $i++ }}</td>
-                  <td><a href="{{route('student.show', $data->id)}}">{{ $data->name }}</td>
-                  <td>{{ $data->course_name }}</td>
+                  <tr>
                   
-                  
-                 
-                  <td>
+                    <th>Studnet ID</th>
+                    <th>Exam Roll</th>
+                    <th>Full Name</th>
+                    <th>Balance</th>
                     
-                    <form action="">
-
-                      <button href="#" class="btn btn-success">Edit</button>
-                    </form>
-                  </td>
-                  <td>
-                    <form action="{{route('department.destroy', $data->id)}}" method="post">
-                      @csrf
-                      @method('delete')
-                      <button class="btn btn-danger">Delete</button>
-                    </form>
-                  </td>
+                    
+                  </tr>
+                  
                 </tr>
-                @endforeach --}}
+               
+               
+                  @foreach ($status as $data)
+                  <tr>
+                   
+                    
+                    <td> {{$data->student_id}}</td>
+                    <td> {{$data->student->exam_roll}}</td>
+                    <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                    
+                    <td> {{$data->balance}}</td>
+                    
+                    
+                  </tr>
+                      
+                  @endforeach
                 
               </table>
+                   
+              
+              @endisset
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
       </div>
+    
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-  
-  @endsection
+
+
+@endsection

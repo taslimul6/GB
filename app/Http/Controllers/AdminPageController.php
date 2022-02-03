@@ -10,19 +10,28 @@ use App\Models\Semester;
 use App\Models\Session;
 use App\Models\Transaction;
 use App\Models\crsession;
-
+use App\Models\Status;
+use App\Models\pin;
+use App\Models\Onlinepayment;
+use Faker\Factory;
 class AdminPageController extends Controller
 {   
     public function index(){
         $all = Student::orderBy('id', 'DESC')->paginate(10);
         $pays = Transaction::orderBy('id', 'DESC')->paginate(5);
 
+        $opays = Onlinepayment::where('state' , '=' , '1')->paginate(5);
+
+
+        $deps =count(Department::all()) ;
+        $tst = count(Student::all()) ;
+        $ats = count(Transaction::all()) ;
+
+
+
 
        
-        return view('admin.index' , [
-            'all' => $all,
-            'pays' => $pays,
-        ]);
+        return view('admin.index' , compact('all' , 'pays' , 'deps' , 'tst' , 'ats' , 'opays'));
     }
 
     public function singleTnx(){
@@ -34,14 +43,16 @@ class AdminPageController extends Controller
             $sems = Semester::all();
             $sess = Session::all();
             $pays = Transaction::where('student_id', '=' , $src)->get()->all();
+            $status = Status::where('student_id' , '=' , $src)->get()->first();
 
             //adding payments of students
-            $sum = 0;
-                foreach($pays as $pay)
-                {
-                $sum+= $pay->amount;
-                }
-                
+            $dsum = 0;
+            $csum = 0;
+            foreach($pays as $pay)
+            {
+            $dsum+= $pay->debit;
+            $csum+= $pay->credit;
+            }
             
             
             return view('admin.payment-single' , [
@@ -50,7 +61,10 @@ class AdminPageController extends Controller
                 'sess' => $sess,
                 'pays' => $pays,
                 'i' => $i=1,
-                'sum' =>$sum,
+                
+                'dsum'=>$dsum,
+                'csum'=>$csum,
+                'status'=> $status
 
             ]);
 
@@ -63,12 +77,36 @@ class AdminPageController extends Controller
     }
 
    
-    public function due()
+    public function due(Request $request)
     { 
-        $src = null;
-        return view('admin.payment-due' , [
-            'src' => $src
-        ]);
+        $all = Department::all();
+        $sess = Session::all();
+        $department_id = request('department_id');
+        $session_id = request('session_id');
+        $semester_id = request('semester_id');
+
+        if(request('next')==1){
+            $val=$request->validate([
+                'department_id'=>'required|exists:statuses,department_id',
+                
+            ]);
+            $status = status::where([
+                ['department_id' ,'=' , $department_id],
+                ['session_id' ,'=' , $session_id],
+                ['semester_id' ,'=' , $semester_id],
+                ['balance' ,'>' , 0 ],
+            ])->get();
+           
+            
+            return view('admin.payment-due' , compact('all' , 'department_id' , 'sess' , 'session_id' ,'status' ));
+
+        }
+     
+        else{
+            return view('admin.payment-due' , compact('all' , 'department_id' , 'sess' , 'session_id' ));
+        }
+    
+      
        
     }
     public function pr()
@@ -110,7 +148,32 @@ class AdminPageController extends Controller
 
             //adding payments of students
            
+            
+            
+            
+            return view('admin.pr-advance' , [
                 
+                'pays' => $pays,
+                'i' => $i=1,
+                'all'=>$all
+                
+
+            ]);
+
+        }
+        if(request('bank')){
+            $all = Session::all();
+            $src = request()->validate([
+                'bank' => 'required|exists:transactions,online_tnx'
+            ]);
+         
+            $pays = Transaction::where('online_tnx', '=' , $src)->get();
+
+
+
+            //adding payments of students
+           
+            
             
             
             return view('admin.pr-advance' , [
@@ -127,10 +190,12 @@ class AdminPageController extends Controller
             $all = Session::all();
             $src = request('date');
             $pays = Transaction::where('created_at', 'like' ,'%'. $src . '%' )->get();
-            $sum = 0;
+            $dsum = 0;
+            $csum = 0;
             foreach($pays as $pay)
             {
-            $sum+= $pay->amount;
+            $dsum+= $pay->debit;
+            $csum+= $pay->credit;
             }
             
 
@@ -138,7 +203,8 @@ class AdminPageController extends Controller
                 
                 'pays' => $pays,
                 'i' => $i=1,
-                'sum'=>$sum,
+                'dsum'=>$dsum,
+                'csum'=>$csum,
                 'all'=>$all
             ]);
         }
@@ -147,37 +213,41 @@ class AdminPageController extends Controller
             $all = Session::all();
             $src = request('month');
             $pays = Transaction::where('created_at', 'like' ,'%'. $src . '%' )->get();
-            $sum = 0;
+            $dsum = 0;
+            $csum = 0;
             foreach($pays as $pay)
             {
-            $sum+= $pay->amount;
+            $dsum+= $pay->debit;
+            $csum+= $pay->credit;
             }
-
             return view('admin.pr-advance' , [
                 
                 'pays' => $pays,
                 'i' => $i=1,
-                'sum'=>$sum,
+                'dsum'=>$dsum,
+                'csum'=>$csum,
                 'all'=>$all
                
             ]);
-
+ 
         }
         if(request('session')){
             $src = request('session');
             $all = Session::all();
             $pays = Transaction::where('session_id','=',  $src  )->get();
-            $sum = 0;
+            $dsum = 0;
+            $csum = 0;
             foreach($pays as $pay)
             {
-            $sum+= $pay->amount;
+            $dsum+= $pay->debit;
+            $csum+= $pay->credit;
             }
-
             return view('admin.pr-advance' , [
                 
                 'pays' => $pays,
                 'i' => $i=1,
-                'sum'=>$sum,
+                'dsum'=>$dsum,
+                'csum'=>$csum,
                 'all'=>$all
                
             ]);
@@ -196,15 +266,6 @@ class AdminPageController extends Controller
        
     }
     
-
-
-
-
-
-
-
-
-
 
 
 
@@ -373,4 +434,91 @@ class AdminPageController extends Controller
         }
        
     }
+    public function pins(){
+       
+        if(request('pin')==1){
+            $faker = Factory::create();
+           
+    
+            Pin::where('id' , '=' , '1')->update([
+                'pin' => $faker->randomNumber($nbDigits = '6', $strict = false)
+            ]);
+        }
+        
+
+        $data= Pin::where('id' , '=' , '1')->get()->first();
+        return view('admin.pins' , compact('data'));
+    }
+
+    public function wait(){
+       
+       $datas = Onlinepayment::where('state' , '=' , '1')->get()->all();
+       
+        return view('admin.online-wait' , compact('datas'));
+    }  
+    
+    public function Olog(){
+       
+        $datas = Onlinepayment::where('state' , '=' , '2')
+        ->orWhere('state' , '=' , '3')->orderby('created_at', 'desc')->get()->all();
+        
+         return view('admin.online-log' , compact('datas'));
+     } 
+
+
+    public function Odelete($id){
+       
+         Onlinepayment::where('id' , '=' , $id)->update([
+            'state'=> '3'
+        ]);
+        
+         return redirect()->back()->with('message' , 'Payment Disapproved');
+     }
+
+     public function Oprocess($id){
+       
+        $data = Onlinepayment::firstWhere('id' , '=' ,$id);
+
+        $sess = Session::all();
+       
+        return view('admin.online-edit' , compact(  'sess' ,'data'));
+    }
+
+    public function Ostore($id , Request $request){
+       
+        $pays = Transaction::where('student_id', '=' , $request->student_id)->get()->all();
+        $balance = -$request->credit;
+        foreach($pays as $pay)
+        {
+        $balance+= $pay->debit;
+        $balance-=$pay->credit;
+        }
+        $stat = Status::where('student_id', '=' , $request->student_id)->update(['balance' =>   $balance]);
+
+        $up = new Transaction;
+        $up->student_id = $request->student_id;
+        $up->session_id = $request->session_id;
+        $up->semester_id = $request->semester_id;
+        $up->details = $request->details;
+        $up->debit = '0';
+        $up->credit = $request->credit;
+        $up->payslip = $request->payslip;
+        $up->online_tnx = $request->bank_tnxid;
+        $up->balance =  $balance;
+        if($up->save()){
+
+            Onlinepayment::where('id' , '=' , $id)->update([
+                'state'=> '2'
+            ]);
+
+            $tnxID = Transaction::where('student_id', '=' , $request->student_id)->orderby('created_at', 'desc')->first();
+            return redirect()->back()->with('message' , 'Transaction ID : ' . $tnxID->id )->with('details' , 'Transaction Type : ' . $tnxID->details );
+        }
+    }
+
+
+
+
+
+
 }

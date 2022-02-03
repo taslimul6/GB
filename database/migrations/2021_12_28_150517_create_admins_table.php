@@ -15,21 +15,23 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id');
             $table->string('full_name');
+            $table->string('member_id');
+            $table->string('user_id')->nullable();
+            $table->string('designation')->nullable();
             $table->string('present_address')->nullable();
-            $table->string('permanent_address');
-            $table->string('phone');
-            $table->string('gender');
+            $table->string('permanent_address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('gender')->nullable();
             $table->string('blood')->nullable();
-            $table->string('nationality');
-            $table->string('religion');
-            $table->string('fathers_name');
+            $table->string('nationality')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('fathers_name')->nullable();
             $table->string('fathers_contact')->nullable();
-            $table->string('mothers_name');
+            $table->string('mothers_name')->nullable();
             $table->string('mothers_contact')->nullable();
-            $table->string('emergency_c_name');
-            $table->string('emergency_number');
+            $table->string('emergency_c_name')->nullable();
+            $table->string('emergency_number')->nullable();
             $table->string('emergency_address')->nullable();
             $table->timestamps();
 

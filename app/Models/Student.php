@@ -29,12 +29,21 @@ class Student extends Model
         'class_roll',
         'exam_roll',
         'department_id',
-        'email'
+        'email',
+        'dob',
+        'admission_date',
+        'ad_session'
         
         
     ];
     public function department(){
         return $this->belongsTo(Department::class);
+     }
+     public function user(){
+        return $this->belongsTo(User::class , 'user_id');
+     }
+     public function session(){
+        return $this->belongsTo(Session::class , 'ad_session');
      }
    
   

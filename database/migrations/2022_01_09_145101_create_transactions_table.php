@@ -23,6 +23,11 @@ class CreateTransactionsTable extends Migration
             $table->integer('credit')->nullable();
             $table->integer('payslip')->nullable();
             $table->integer('user_id')->nullable();
+            $table->boolean('is_delete')->nullable();
+            $table->string('balance');
+            $table->string('online_tnx')->nullable();
+            $table->string('ex1')->nullable();
+
             $table->timestamps();
         });
     }

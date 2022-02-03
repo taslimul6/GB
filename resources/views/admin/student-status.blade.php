@@ -58,6 +58,7 @@
                       <option value="6">6th Semester</option>
                       <option value="7">7th Semester</option>
                       <option value="8">8th Semester</option>
+                      <option value="11">Graduated</option>
                     </select>
                     <label >Select Session</label>
                     <select name="session_id" class="form-control">
@@ -123,7 +124,12 @@
                     <td> {{$data->student_id}}</td>
                     <td> {{$data->student->exam_roll}}</td>
                     <td><a href="{{route('student.show', $data->student_id)}}">{{ $data->student->full_name }}</a></td>
-                    <td> {{$data->semester_id}}</td>
+                    <td> @if($data->semester_id == '11')
+                      Graduated
+                      @else
+                      {{$data->semester_id}}
+                      @endif
+                    </td>
                     <td> {{$data->session->title}}</td>
                     
                     

@@ -19,6 +19,48 @@
         <div class="container bg-white">
             <div class="row">
                 <div class="col-md-12">
+                  @if (Session()->has('message')) 
+                  <div class="box box-default">
+                    <div class="box-header with-border">
+                      <i class="fa fa-warning"></i>
+        
+                      <h3 class="box-title">Successful Transaction</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Transaction Details!</h4>
+                         <h5>{{Session('message')}} </h5> 
+                         <h5>{{Session('details')}} </h5>
+                      </div>
+                    </div>
+                    <!-- /.box-body -->
+                  </div>
+                  @endif
+
+                  @if (Session()->has('delete')) 
+                  <div class="box box-default">
+                    <div class="box-header with-border">
+                      <i class="fa fa-warning"></i>
+        
+                      <h3 class="box-title"> Transaction Deleted Successfully</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Transaction Details!</h4>
+                         <h5>{{Session('delete')}} </h5> 
+                         
+                      </div>
+                    </div>
+                    <!-- /.box-body -->
+                  </div>
+                  @endif
+
+                    
+                   
                     @if ($errors->any())
                     @foreach ($errors->all() as $error)
                       <div class="alert alert-danger">{{$error}}</div>
@@ -104,7 +146,7 @@
                       </tr>
                       <tr>
                         <th class="smk-w-30"> Email: </td>
-                        <td> </td>
+                        <td>{{ $data->email }} </td>
                       </tr>
                       <tr>
                         <th class="smk-w-30">Present Address: </td>
@@ -247,15 +289,23 @@
                       </tr>
                       <tr>
                         <th class="smk-w-30"> Admitted Semester Session: </td>
-                        <td>{{ $data->ad_session }}</td>
+                        <td>{{ $data->session->title }}</td>
                       </tr>
                       <tr>
                         <th class="smk-w-30"> Graduated Semester Session: </td>
                         <td> </td>
                       </tr>
                       <tr>
+                        <th class="smk-w-30"> Current Session: </td>
+                        <td>@isset($status->session->title)
+                          {{ $status->session->title }}
+                        @endisset</td>
+                      </tr>
+                      <tr>
                         <th class="smk-w-30"> Current Semester: </td>
-                        <td>{{ $data->full_name }}</td>
+                        <td>@isset($status->session->title)
+                          {{ $status->semester_id }}
+                        @endisset</td>
                       </tr>
                      
                       
@@ -348,7 +398,31 @@
                           
 
                           <div class="box-footer">
-                            <button type="submit" name="enroll" class="btn btn-primary">Add Transaction</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                              ADD Transaction
+                            </button>
+                              <div class="modal fade" id="modal-default">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                      <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Are you sure to add this transaction?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                     <button type="submit" name="enroll" class="btn btn-primary">Confirm</button>
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            
+                            
                           </div>
                           
                         </div>
@@ -390,6 +464,8 @@
                           <th>Debit</th>
                           <th>Credit</th>
                           <th>Balance</th>
+                          <th><></th>
+                         
                           
                         </tr>
                         
@@ -400,19 +476,163 @@
                             
                         
                         <tr>
-                          <td>{{$i++}}</td>
-                          <td>{{$pay->created_at}}</td>
-                          <td>{{$pay->session->title}}</td>
-                          <td>{{$pay->semester_id}}</td>
-                          <td>{{$pay->details}}
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$sumk = $i++}}</td>
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->created_at}}</td>
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->session->title}}</td>
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->semester_id}}</td>
+                          <td  data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->details}}
                             <p style="margin-bottom:0 !important"> <span style="color:red">TranslationID no:</span>  {{$pay->id}}</p>
                             <p style="margin-bottom:0 !important"> Payslip no: {{$pay->payslip}}</p>
-                        </td>
-                          <td>{{$pay->debit}}</td>
-                          <td>{{$pay->credit}}</td>
-                          <td>{{$pay->balance}}</td>
+                          </td>
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->debit}}</td>
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->credit}}</td>
+                          <td data-toggle="modal" data-target="#modal-{{$pay->id}}">{{$pay->balance}}</td>
+                          <td>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$pay->id}}">
+                             Delete
+                            </button>
+                            <div class="modal modal-danger fade" id="modal-danger{{$pay->id}}">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Warning!!</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>Are you sure to delete this transaction?</p>
+                                    <p> Details: {{$pay->details}}</p>
+                                    <p>TransactionID: {{$pay->id}}</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                    <form action="{{route('payment.destroy' , $pay->id)}}" method="post">
+                                      @csrf
+                                      @method('delete')
+                                      <input name="student_id" type="hidden" class="form-control" value="{{$data->student_id}}">
+                                      <button type="submit" name="delete" class="btn btn-outline " value='1'>Confirm</button>
+                                      
+                                      
+                                    </form>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+
+                                {{--  --}}
+                          </td>
+                          
                           
                         </tr>
+                        <div class="modal fade" id="modal-{{$pay->id}}">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Payment Edit: {{$sumk}} </h4>
+                              </div>
+                              <div class="modal-body">
+                                <form role="form" method="post"  action="{{route('payment.update' , $pay->id)}}">
+                                  @csrf
+                                  @method('put')
+                                  <div class="box-body">
+                                      <input name="student_id" type="hidden" class="form-control" value="{{$data->student_id}}">
+                                    <div class="form-group">
+                                      <label >Payment Type </label>
+                                      <select class="form-control" name="details">
+                                        <option > Admission Fees </option>
+
+                                        <option @if( $pay->details == 'Semester Fees') Selected @endif > Semester Fees </option>
+                                        <option @if( $pay->details == 'Library Fees') Selected @endif > Library Fees </option>
+                                        <option @if( $pay->details == 'Improvement Fees') Selected @endif > Improvement Fees </option>
+                                        <option @if( $pay->details == 'Others') Selected @endif > Others </option>
+          
+                                        
+                                      </select>
+                                    </div>
+                                  
+                                    <div class="form-group">
+                                      <label >Session</label>
+                                      <select class="form-control" name="session_id">
+                                          @foreach($sess as $ses )
+                
+                                          <option value="{{$ses->id}}"  @if( $pay->session_id == $ses->id) Selected @endif> {{$ses->title}} </option>
+                                          @endforeach
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label >Semester</label>
+                                      
+                                          
+                                        <select name="semester_id" class="form-control">
+                                          <option value="1" @if( $pay->semester_id == 1) Selected @endif>1st Semester</option>
+                                          <option value="2" @if( $pay->semester_id == 2) Selected @endif>2nd Semester</option>
+                                          <option value="3" @if( $pay->semester_id == 3) Selected @endif>3rd Semester</option>
+                                          <option value="4" @if( $pay->semester_id == 4) Selected @endif>4th Semester</option>
+                                          <option value="5" @if( $pay->semester_id == 5) Selected @endif>5th Semester</option>
+                                          <option value="6" @if( $pay->semester_id == 6) Selected @endif>6th Semester</option>
+                                          <option value="7" @if( $pay->semester_id == 7) Selected @endif>7th Semester</option>
+                                          <option value="8" @if( $pay->semester_id == 8) Selected @endif>8th Semester</option>
+                                        </select>
+                                        
+                                          
+                                      
+                                    </div>
+                                    <div class="form-group">
+                                      <label >Transaction Type </label>
+                                      <select class="form-control" disabled >
+          
+                                        <option value="credit" @if( $pay->credit > 0 ) Selected @endif> Credit (-) </option>
+                                        <option value="debit" @if( $pay->debit > 0 ) Selected @endif> Debit (+) </option>
+          
+                                      </select>
+                                      
+ 
+                                      <input name="type"  @if( $pay->credit > 0 ) Value="credit" @endif
+                                      @if( $pay->debit > 0 ) Value="debit" @endif type="hidden">
+                                    </div>
+                                    <div class="form-group">
+                                      <label >Amount:</label>
+                                      <input type="number" class="form-control" name='amount' 
+                                      @if( $pay->credit > 0 ) Value="{{$pay->credit}}" @endif
+                                      @if( $pay->debit > 0 ) Value="{{$pay->debit}}" @endif
+                                    
+                                      
+                                      >
+                                    </div>
+                                    <div class="form-group">
+                                      <label >Payslip No:</label>
+                                      <input type="number" class="form-control" name='payslip' Value='{{$pay->payslip}}'>
+                                      
+                                    </div>
+                                    
+                                  </div>
+                                  <!-- /.box-body -->
+                              
+                              
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+
+                                
+
+                                
+                                
+
+                               <button type="submit" name="update" class="btn btn-success" value='1'>Confirm Update </button>
+                              
+                              
+                              </form>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        
+                      </div>
                         @endforeach
                         <tr>
                             <td></td>
@@ -423,11 +643,15 @@
                               <b>Total Amount:<b>
                             
                           </td>
-                          <td> </td>
-                          <td>{{$status->balance}}</td>
-
+                       @isset($pay)
+                         
+                       
+                          <td> {{$dsum}}</td>
+                          <td> {{$csum}}</td>
+                          <td>{{$pay->balance}}</td>
+                        @endisset
                         </tr>
-                        
+                 
                       </table>
                     </div>
                     <!-- /.box-body -->

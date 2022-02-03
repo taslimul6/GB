@@ -31,6 +31,12 @@ class CreateStatusesTable extends Migration
             $table->integer('p8');
 
             $table->integer('balance')->nullable();
+            $table->integer('total_debit')->nullable();
+            $table->integer('total_credit')->nullable();
+            
+            $table->integer('ex1')->nullable();
+            $table->integer('ex2')->nullable();
+            $table->integer('ex3')->nullable();
 
             $table->timestamps();
         });

@@ -22,7 +22,7 @@ class SessionSeeder extends Seeder
        
         $user = [
            
-            'title' => 'April-2021',
+            'title' => 'NULL',
           
             
             

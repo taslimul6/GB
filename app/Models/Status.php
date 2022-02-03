@@ -26,7 +26,7 @@ class Status extends Model
         
     ];
     public function session(){
-        return $this->belongsTo(Session::class );
+        return $this->belongsTo(Session::class , 'session_id');
      }
     public function student(){
         return $this->belongsTo(Student::class , 'id' );

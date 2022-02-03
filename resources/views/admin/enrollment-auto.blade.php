@@ -89,6 +89,8 @@
       <!-- /.row -->
       <div class="row">
         
+
+    
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
@@ -103,53 +105,259 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              @isset($active)
-              {{dd($active)}}
-              @endisset
+             
+              <script language="JavaScript">
+                function toggle(source) {
+                  checkboxes = document.getElementsByClassName('foo');
+                  for(var i=0, n=checkboxes.length;i<n;i++) {
+                    checkboxes[i].checked = source.checked;
+                  }
+                }
+                </script>
+                
 
-              @isset($status)
-              <form action="{{route('enrollment.create')}}" method="get">
-                @csrf
-              <table class="table table-hover">
-                <tr>
-                
+              @if($semester_id == 1)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
                   <tr>
-                    <th>Select</th>
-                    <th>Studnet ID</th>
-                    <th>Exam Roll</th>
-                    <th>Full Name</th>
-                    <th>Semester</th>
-                    <th>Session</th>
-                    
-                  </tr>
-                  
-                </tr>
-               
-               
-                  @foreach ($status as $data)
-                  <tr>
-                   
-                    <td> <input type="checkbox" name="active[]" id="" value="{{$data->student_id}}"></td>
-                    <td> {{$data->student_id}}</td>
-                    <td> {{$data->student->exam_roll}}</td>
-                    <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
-                    <td> {{$data->semester_id}}</td>
-                    <td> {{$data->session->title}}</td>
-                    
-                    
-                  </tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
                       
-                  @endforeach
-                
-              </table>
-                    <input class="form-control " type="submit" value="Auto Enroll">
-              </form>
-              @endisset
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                    <button class="form-control btn btn-success" name="auto" type="submit" value="1">Auto Enrollment</button>
+                </form>
+              @endif
+              @if($semester_id == 2)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="2">Auto Enroll</button>
+                </form>
+              @endif
+              @if($semester_id == 3)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="3">Auto Enrollment</button>
+                </form>
+              @endif
+              @if($semester_id == 4)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo"value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="4">Auto Enroll</button>
+                </form>
+              @endif
+              @if($semester_id == 5)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="5">Auto Enroll</button>
+                </form>
+              @endif
+              @if($semester_id == 6)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="6">Auto Enroll</button>
+                </form>
+              @endif
+              @if($semester_id == 7)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="7">Auto Enroll</button>
+                </form>
+              @endif
+              @if($semester_id == 8)
+                <form action="{{route('enrollment.create')}}" method="get">
+                <table class="table table-hover">
+                  <tr>
+                    <tr>
+                      <th><input type="checkbox" onClick="toggle(this)" /> Select All<br/>  </th>
+                      <th>Studnet ID</th>
+                      <th>Exam Roll</th>
+                      <th>Full Name</th>
+                      <th>Semester</th>
+                      <th>Session</th>
+                      
+                    </tr>
+                  </tr>
+                    @foreach ($status as $data)
+                    <tr>
+                      <td> <input type="checkbox" name="active[{{$data->student_id}}]" class="foo" value="{{$data->student_id}}"></td>
+                      <td> {{$data->student_id}}</td>
+                      <td> {{$data->student->exam_roll}}</td>
+                      <td><a href="{{route('student.show', $data->student->id)}}">{{ $data->student->full_name }}</a></td>
+                      <td> {{$data->semester_id}}</td>
+                      <td> {{$data->session->title}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+                      <button class="form-control btn btn-success" name="auto" type="submit" value="8">Auto Enroll</button>
+                </form>
+              @endif
+             
+
+
+              
+
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
+
+        
+       
+        
+
+        
+        
       </div>
     
     </section>

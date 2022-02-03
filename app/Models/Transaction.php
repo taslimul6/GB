@@ -8,13 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+    protected $with = [ "session"];
     protected $fillable = [
+        'student_id',
         'semester_id',
         'session_id',
         'details',
-        'amount',
+        'debit',
+        'credit',
         'payslip',
-        'student_id'
+        'user_id',
+        'is_delete',
+        'balance'
+       
        
         
     ];

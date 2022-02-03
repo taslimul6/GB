@@ -38,15 +38,16 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+ 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{route('admin')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>G</b>B</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>GB</b>Finance</span>
     </a>
@@ -260,15 +261,17 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               
-              <span class="hidden-xs">Logged User Name</span>
+              <span class="hidden-xs">{{auth()->user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 
                 <p>
-                  Name Joined date
-                  <small>Member since Nov. 2012</small>
+                  Name: {{auth()->user()->name}}
+                </p>
+                <p>
+                  Member id: {{auth()->user()->member_id}}
                 </p>
               </li>
               <!-- Menu Body -->
@@ -292,7 +295,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{route('ad.logout')}}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -335,6 +338,23 @@
           
         </li>
        
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Admins</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('member.index')}}"><i class="fa fa-circle-o"></i>Admin List</a></li>
+            <li><a href="{{route('member.create')}}"><i class="fa fa-circle-o"></i> Create Admin </a></li>
+            
+
+            
+            
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
@@ -412,7 +432,37 @@
               
           </ul>
       </li>
-     
+      <li class="treeview">
+        <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Online Payment </span>
+            <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="{{route('online.wait')}}"><i class="fa fa-circle-o"></i>Waiting List</a></li>
+            <li><a href="{{route('admin.Olog')}}"><i class="fa fa-circle-o"></i>History Log</a></li>
+            
+            
+        </ul>
+    </li>
+          <li class="treeview">
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>ScholarShip</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+               
+              <li><a href="{{route('scholarship.create')}}"><i class="fa fa-circle-o"></i>Auto Scholarship Entry</a></li>
+                
+            </ul>
+        </li>
+      
+        
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-pie-chart"></i>
@@ -429,6 +479,21 @@
                 
             </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-pie-chart"></i>
+              <span>Pins</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="{{route('pins')}}"><i class="fa fa-circle-o"></i>Security Codes</a></li>
+              
+              
+              
+          </ul>
+      </li>
         
 
 
@@ -446,10 +511,10 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0.18
+      <b>Version</b> 1.1.0
     </div>
     <strong>Copyright &copy; 2022 <a href="https://taslimul.com">GB Finance</a>.</strong> All rights
-    reserved.
+    reserved. Designed and Developed By <b> Department of Electrical and Electronic Engineering</b>
   </footer>
 
   <!-- Add the sidebar's background. This div must be placed

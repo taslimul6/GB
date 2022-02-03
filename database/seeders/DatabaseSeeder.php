@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
         $this -> call([
 
             
-        
-            
+            Crsession::class,
+            PinSeeder::class,
             SessionSeeder::class,
+            SuperAdminSeeder::class
            
            
         ]);

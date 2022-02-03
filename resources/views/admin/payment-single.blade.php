@@ -80,7 +80,7 @@
                     <h2 class="card-title">{{ $data->full_name }} </h2>
                     <h4 class="card-subtitle mb-2 ">{{ $data->student_id }}</h4>
                     <p class="card-text">{{ $data->department->course_name }}</p>
-                    <h4 class="card-subtitle mb-2 ">{{ $data->batch }}</h4>
+                    <h4 class="card-subtitle mb-2 ">Batch: {{ $data->batch }}</h4>
                     
                   </div>
                 </div>
@@ -104,7 +104,7 @@
                       </tr>
                       <tr>
                         <th class="smk-w-30"> Email: </td>
-                        <td> </td>
+                        <td> {{ $data->email }}</td>
                       </tr>
                       <tr>
                         <th class="smk-w-30">Present Address: </td>
@@ -247,15 +247,23 @@
                       </tr>
                       <tr>
                         <th class="smk-w-30"> Admitted Semester Session: </td>
-                        <td>{{ $data->ad_session }}</td>
+                        <td>{{ $data->session->title  }}</td>
                       </tr>
                       <tr>
                         <th class="smk-w-30"> Graduated Semester Session: </td>
                         <td> </td>
                       </tr>
                       <tr>
+                        <th class="smk-w-30"> Current Session: </td>
+                        <td>@isset($status->session->title)
+                          {{ $status->session->title }}
+                        @endisset</td>
+                      </tr>
+                      <tr>
                         <th class="smk-w-30"> Current Semester: </td>
-                        <td>{{ $data->full_name }}</td>
+                        <td>@isset($status->session->title)
+                          {{ $status->semester_id }}
+                        @endisset</td>
                       </tr>
                      
                       
@@ -267,19 +275,13 @@
             </div>
        
             <div class="row">
-               
                 <div class="col-xs-12" style="padding: 0 !important;">
                   <div class="box">
                     <div class="box-header">
                       <h3 class="box-title">
                         Transactions Report
-                           
-                        </h3>
-        
-                      
+                      </h3>
                     </div>
-                    
-        
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
                       <table class="table table-hover">
@@ -312,8 +314,9 @@
                             <p style="margin-bottom:0 !important"> <span style="color:red">TranslationID no:</span>  {{$pay->id}}</p>
                             <p style="margin-bottom:0 !important"> Payslip no: {{$pay->payslip}}</p>
                         </td>
-                          <td>{{$pay->amount}}</td>
-                          <td>{{$pay->updated_at}}</td>
+                        <td>{{$pay->debit}}</td>
+                        <td>{{$pay->credit}}</td>
+                        <td>{{$pay->balance}}</td>
                           
                         </tr>
                         @endforeach
@@ -325,9 +328,12 @@
                           <td>
                               <b>Total Amount:<b>
                             
-                          </td>
-                          <td> {{$sum}}</td>
-                          <td></td>
+                          </td> 
+                         
+                          <td> {{$dsum}}</td>
+                          <td> {{$csum}}</td>
+                          <td>{{$status->balance}}</td>
+                         
 
                         </tr>
                         

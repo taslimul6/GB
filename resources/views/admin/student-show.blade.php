@@ -7,14 +7,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Simple Tables
-        <small>preview of simple tables</small>
+         Profile
+        
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Simple</li>
-      </ol>
+      
     </section>
 
     <!-- Main content -->
@@ -32,7 +28,7 @@
                 <h2 class="card-title">{{ $data->full_name }} </h2>
                 <h4 class="card-subtitle mb-2 ">{{ $data->student_id }}</h4>
                 <p class="card-text">{{ $data->department->course_name }}</p>
-                <h4 class="card-subtitle mb-2 ">{{ $data->batch }}</h4>
+                <h4 class="card-subtitle mb-2 ">Batch : {{ $data->batch }}</h4>
                 
               </div>
             </div>
@@ -56,7 +52,7 @@
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Email: </td>
-                    <td> </td>
+                    <td> {{ $data->user->email }}</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30">Present Address: </td>
@@ -92,7 +88,7 @@
                   </tr>
                   <tr>
                     <th> Date Of Birth: </td>
-                    {{-- <td>{{ $data->dob }}</td> --}}
+                    <td>{{ $data->dob }}</td>
                   </tr>
                   <tr>
                     <th> Gender: </td>
@@ -199,7 +195,7 @@
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Admitted Semester Session: </td>
-                    <td>{{ $data->ad_session }}</td>
+                      <td> @isset($data->session->title) {{ $data->session->title }} @endisset</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Graduated Semester Session: </td>
@@ -207,11 +203,15 @@
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Current Session: </td>
-                    <td>{{ $status->session->title }}</td>
+                    <td>@isset($status->session->title)
+                      {{ $status->session->title }}
+                    @endisset</td>
                   </tr>
                   <tr>
                     <th class="smk-w-30"> Current Semester: </td>
-                    <td>{{ $status->semester_id }}</td>
+                    <td>@isset($status->session->title)
+                      {{ $status->semester_id }}
+                    @endisset</td>
                   </tr>
                  
                   

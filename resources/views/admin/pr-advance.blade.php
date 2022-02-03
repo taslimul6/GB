@@ -37,6 +37,9 @@
                   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-trans">
                     Filter By TransactionID
                   </button>
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-bank">
+                    Filter By Online Bank TransactionID
+                  </button>
                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-date">
                     Filter By Date
                   </button>
@@ -93,6 +96,30 @@
                         <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" name="t" >Search</button>
+                        </div>
+                    </form>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <div class="modal fade" id="modal-bank">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Filter By TransactionID</h4>
+                </div>
+                    <form action="{{route('pr')}}">
+
+                        <div class="modal-body">   
+                            <label>Bank TransactionID Number </label>
+                        <input type="text" class="form-control" Placeholder="TransactionID Number" name="bank">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="b" >Search</button>
                         </div>
                     </form>
               </div>
@@ -202,7 +229,8 @@
                       <th>Session</th>
                       <th>Semester</th>
                       <th>Payment Details</th>
-                      <th>Amount</th>
+                      <th>Debit</th>
+                      <th>Credit</th>
                       
                       
                       
@@ -220,19 +248,20 @@
                       <td>{{$i++}}</td>
                       <td>{{$pay->created_at}}</td>
                       <td>{{$pay->student_id}}</td>
-                      <td>{{$pay->session_id}}</td>
+                      <td>{{$pay->session->title}}</td>
                       <td>{{$pay->semester_id}}</td>
                       <td>{{$pay->details}}
                         <p style="margin-bottom:0 !important"> <span style="color:red">TranslationID no:</span>  {{$pay->id}}</p>
                         <p style="margin-bottom:0 !important"> Payslip no: {{$pay->payslip}}</p>
                     </td>
-                      <td>{{$pay->amount}}</td>
+                      <td>{{$pay->debit}}</td>
+                      <td>{{$pay->credit}}</td>
                       
                       
                     </tr>
                     @endforeach
 
-                     @isset($sum)
+                     @isset($dsum)
                           <tr>
                             <td></td>
                           <td> </td>
@@ -243,7 +272,8 @@
                               <b>Total Amount:<b>
                             
                           </td>
-                          <td> {{$sum}}</td>
+                          <td> {{$dsum}}</td>
+                          <td> {{$csum}}</td>
                           
 
                         </tr>

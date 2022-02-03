@@ -53,6 +53,7 @@
                   <th>Semester</th>
                   <th>Contact</th>
                   <th><></th>
+                  <th><></th>
                 </tr>
                 @foreach ($all as $data)
                     
@@ -63,7 +64,35 @@
                   <td><a href="{{route('student.show', $data->id)}}">{{ $data->full_name }}</a></td>
                   <td>{{ $data->blood }}</td>
                   <td>{{ $data->phone }}</td>
-                  <td><a href="#">Edit</a></td>
+                  <td><a  class="btn btn-primary" href="{{ route('student.edit' , $data->id)}}">Edit</a></td>
+                  <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">
+                    Delete
+                  </button></td>
+                  <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure to Delete this student?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                          <form action="{{ route('student.destroy' , $data->id)}}" method= "post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger" name="delete" value="1"> Confirm</button>
+                          </form>
+                         
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
                 </tr>
                 @endforeach
                 

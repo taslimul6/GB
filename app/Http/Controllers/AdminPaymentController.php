@@ -32,13 +32,14 @@ class AdminPaymentController extends Controller
 
             //adding payments of students
           
-           
+            $dsum = 0;
+            $csum = 0;
+            foreach($pays as $pay)
+            {
+            $dsum+= $pay->debit;
+            $csum+= $pay->credit;
+            }
 
-            // foreach($pays as $pay){
-            //     $balance = $pay->debit ;
-            // }
-
-            
             return view('admin.payment-entry' , [
                 'data' => $user,
                 'sems' => $sems,
@@ -46,6 +47,8 @@ class AdminPaymentController extends Controller
                 'pays' => $pays,
                 'status'=>$status,
                 'i' => $i=1,
+                'dsum'=>$dsum,
+                'csum'=>$csum,
                 
                
 
@@ -54,7 +57,8 @@ class AdminPaymentController extends Controller
         }
         else{
             return view('admin.payment-entry' , [
-                
+                'dsum'=>0,
+                'csum'=>0,
             ]);
         }
         
@@ -99,10 +103,10 @@ class AdminPaymentController extends Controller
             $up->payslip = $request->payslip;
             $up->balance =  $balance;
             if($up->save()){
-                return redirect()->back()->with('message' , 'Transaction Added');
+                return redirect()->back()->with('message' , 'Transaction Added ');
             }
 
-
+ 
 
         
        }
@@ -126,7 +130,8 @@ class AdminPaymentController extends Controller
         $up->payslip = $request->payslip;
         $up->balance =  $balance;
         if($up->save()){
-            return redirect()->back()->with('message' , 'Transaction Added');
+            $tnxID = Transaction::where('student_id', '=' , $request->student_id)->orderby('created_at', 'desc')->first();
+            return redirect()->back()->with('message' , 'Transaction ID : ' . $tnxID->id )->with('details' , 'Transaction Type : ' . $tnxID->details );
         }
 
    }
@@ -167,8 +172,70 @@ class AdminPaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+       if($request->update==1){
+            if($request->type == 'credit'){
+            
+                Transaction::where('id' , '=' , $id)->update([
+                    'session_id' => $request->session_id,
+                    'semester_id' => $request->semester_id,
+                    'details' => $request->details,
+                    'debit' => '0' ,
+                    'credit' => $request->amount,
+                    'payslip' => $request->payslip,
+                
+
+                ]);
+
+                $pays = Transaction::where('student_id', '=' , $request->student_id)->get()->all();
+                $bal = 0;
+                foreach($pays as $pay)
+            {
+                $bal+= $pay->debit;
+                $bal-=$pay->credit;
+                $Bup = Transaction::where('id', '=' , $pay->id)->update(['balance' => $bal]);
+            }
+
+            $stat = Status::where('student_id', '=' , $request->student_id)->update(['balance' =>   $bal]);
+
+
+                return redirect()->back()->with('message' , 'Transaction Updated');
+            }
+            if($request->type == 'debit'){
+
+                Transaction::where('id' , '=' , $id)->update([
+                    'session_id' => $request->session_id,
+                    'semester_id' => $request->semester_id,
+                    'details' => $request->details,
+                    'debit' => $request->amount ,
+                    'credit' => '0',
+                    'payslip' => $request->payslip,
+
+                    ]);
+
+                    //Balance Calculate
+                    $pays = Transaction::where('student_id', '=' , $request->student_id)->get()->all();
+                    $bal = 0;
+                    foreach($pays as $pay)
+                {
+                    $bal+= $pay->debit;
+                    $bal-=$pay->credit;
+                    $Bup = Transaction::where('id', '=' , $pay->id)->update(['balance' => $bal]);
+                }
+
+                $stat = Status::where('student_id', '=' , $request->student_id)->update(['balance' =>   $bal]);
+
+                    return redirect()->back()->with('message' , 'Transaction Updated');
+            }
+       
+    
+        } 
+       
+                
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -178,7 +245,21 @@ class AdminPaymentController extends Controller
      */
     public function destroy($id)
     {
-        
+        if(request('delete')==1){
+            Transaction::where('id' , '=' , $id)->delete();
+            $pays = Transaction::where('student_id', '=' , request('student_id'))->get()->all();
+                    $bal = 0;
+                    foreach($pays as $pay)
+                {
+                    $bal+= $pay->debit;
+                    $bal-=$pay->credit;
+                    $Bup = Transaction::where('id', '=' , $pay->id)->update(['balance' => $bal]);
+                }
+
+                $stat = Status::where('student_id', '=' , request('student_id'))->update(['balance' =>   $bal]);
+
+                    return redirect()->back()->with('delete' , 'Transaction Deleted ');
+        }
     }
  
 }

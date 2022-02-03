@@ -68,7 +68,7 @@ class AdminStuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {   
         $student_info=$request->validate([
             'full_name'=> 'required|max:200',
             'present_address'=> 'nullable|max:200',
@@ -91,27 +91,32 @@ class AdminStuController extends Controller
             'exam_roll'=> 'required|integer',
             'department_id'=> 'required|integer',
             'email' => 'required|unique:users|email',
-            // 'dob' => 'required|date|date_format:Y-m-d'
+            'dob' => 'required|date|date_format:Y-m-d',
+            'admission_date' =>'nullable',
+            'ad_session'=>'nullable'
+            
 
 
         ]);
         $val= $request->validate([
             'student_id'=> 'required|integer|unique:users',
-            
             'password' => 'required|min:8'
             
         ]);
+            $cred = new User;
+            $cred ->name = $request->full_name;
+            $cred ->email = $request->email;
+            $cred ->password = bcrypt($request->password);
+            $cred-> student_id = $request->student_id;
+            $cred->role = 'student';
+            $cred->save();
 
-        $cred = new User;
-        $cred ->name = $request->full_name;
-        $cred ->email = $request->email;
-        $cred ->password = bcrypt($request->password);
-        $cred-> student_id = $request->student_id;
-        $cred->save();
-
-
+        
 
         Student::Create($student_info);
+        Student::where('student_id' ,'=' , $request->student_id)->Update([
+            'user_id' => $cred->id
+        ]);
 
 
 
@@ -197,7 +202,16 @@ class AdminStuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $deps = Department::all();
+        $sess = Session::all();
+
+        $student = Student::where('id' , '=' , $id)->get()->first();
+
+
+
+
+
+        return view('admin.student-edit' , compact('deps' , 'sess' , 'student'));
     }
 
     /**
@@ -209,7 +223,43 @@ class AdminStuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student_info=$request->validate([
+            'full_name'=> 'max:200',
+            'present_address'=> 'nullable|max:200',
+            'permanent_address'=> 'max:200',
+            'phone'=> 'max:200',
+            'gender'=> 'max:200',
+            'blood'=> 'nullable|max:200',
+            'nationality'=> 'max:200',
+            'religion'=> 'max:200',
+            'fathers_name'=> 'max:200',
+            'fathers_contact'=> 'max:200',
+            'mothers_name'=> 'max:200',
+            'mothers_contact'=> 'nullable|max:200',
+            'emergency_c_name'=> 'max:200',
+            'emergency_number'=> 'max:200',
+            'emergency_address'=> 'nullable|max:200',
+            
+            'batch'=> 'integer',
+            'class_roll'=> 'integer',
+            'exam_roll'=> 'integer',
+            'department_id'=> 'integer',
+            'email' => 'email',
+            // 'dob' => 'required'
+
+
+        ]);
+       
+        $std = Student::firstWhere('id' , '=' , $id );
+        User::where('student_id' ,'=' , $std->student_id)->Update([
+            'email' => $request->email,
+            'name' =>$request->full_name,
+            'password' => bcrypt($request->password)
+        ]);
+
+        Student::where('id' , '=' , $id )-> Update($student_info);
+
+        return redirect()->back()->with('message' , 'Student Updated Successfully');
     }
 
     /**
@@ -219,8 +269,15 @@ class AdminStuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    { 
+        if(request('delete')==1){
+
+            $dlt = Student::where('id' , '=' , $id)->get()->first();
+            User::where('id' , '=' , $dlt->user_id)->delete();
+            Student::where('id' , '=' , $id)->delete();
+            return redirect()->back()->with('message' , 'Student Deleted ');
+        }
+        
     }
     public function depByStu(Request $request){
         //Auto Enrollment Page
