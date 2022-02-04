@@ -46,7 +46,7 @@ class LoginController extends Controller
 
 
 
-    public function stLogin(Request $request){
+    public function studentp(Request $request){
 
         $val=$request->validate([
             'student_id' => 'required| exists:users,student_id',

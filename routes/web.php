@@ -96,11 +96,16 @@ Route::middleware('superAdmin')->group(function () {
 //Student Parts
 
 
-Route::get('/', function () {
-    return view('login');
-})->name('stuLogin')->middleware('guest');
+Route::get('/', function () { return redirect()->route('st.index');});
 
-Route::post('/', [LoginController::class , 'stLogin'])->name('stLogin');
+
+Route::get('/student-login' , function () {
+
+    return view('student.login');
+  
+})->name('stuLogin');
+
+Route::post('/student-login', [LoginController::class , 'studentp'])->name('stLogin');
 
 Route::get('/logout' , [LoginController::class , 'logout'])->name('st.logout');
 

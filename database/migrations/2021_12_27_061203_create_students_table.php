@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration
             //academic
             $table->integer('batch');
             $table->integer('class_roll');
-            $table->integer('exam_roll');
+            $table->integer('exam_roll')->nullable();
             $table->integer('department_id');
             $table ->integer('user_id')->nullable();
             $table->string('email');
@@ -32,19 +32,19 @@ class CreateStudentsTable extends Migration
 
             $table->string('full_name');
             $table->string('present_address')->nullable();
-            $table->string('permanent_address');
-            $table->string('phone');
-            $table->string('gender');
+            $table->string('permanent_address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('gender')->nullable();
             $table->string('blood')->nullable();
             $table->string('dob')->nullable();
-            $table->string('nationality');
-            $table->string('religion');
-            $table->string('fathers_name');
+            $table->string('nationality')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('fathers_name')->nullable();
             $table->string('fathers_contact')->nullable();
-            $table->string('mothers_name');
+            $table->string('mothers_name')->nullable();
             $table->string('mothers_contact')->nullable();
-            $table->string('emergency_c_name');
-            $table->string('emergency_number');
+            $table->string('emergency_c_name')->nullable();
+            $table->string('emergency_number')->nullable();
             $table->string('emergency_address')->nullable();
 
 

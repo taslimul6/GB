@@ -11,7 +11,7 @@ use App\Models\Session;
 use App\Models\Transaction;
 use App\Models\crsession;
 use App\Models\Status;
-use App\Models\pin;
+use App\Models\Pin;
 use App\Models\Onlinepayment;
 use Faker\Factory;
 class AdminPageController extends Controller
